@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>0x01_CentOS</title>
+    <url>/2020/03/29/0x01_CentOS/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了 CentOS 的常用操作：配置阿里源、GIT、防火墙、时间同步、硬盘分区等</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="ReadMe"><a href="#ReadMe" class="headerlink" title="ReadMe"></a>ReadMe</h2><ul>
+<li><p><strong>Reference ：</strong> <a href="http://linux.vbird.org/linux_basic/" target="_blank" rel="noopener">Linux鸟哥私房菜</a></p>
+</li>
+<li><p><strong>Reference ：</strong> <a href="https://epubw.com/324313.html" target="_blank" rel="noopener">CentOS 7系统管理与运维实战</a> </p>
+</li>
+</ul>
+<hr>
+<h2 id="0x01-CentOS-镜像下载"><a href="#0x01-CentOS-镜像下载" class="headerlink" title="0x01 CentOS 镜像下载"></a>0x01 CentOS 镜像下载</h2><ul>
+<li><a href="http://archive.kernel.org/centos-vault/7.4.1708/isos/x86_64/" target="_blank" rel="noopener"><strong>CentOS镜像下载-iso</strong></a></li>
+<li><a href="http://cloud.centos.org/centos/7/images/" target="_blank" rel="noopener"><strong>CentOS镜像下载-qcow2</strong></a></li>
+</ul>
+<h2 id="0x02-CentOS-配置-阿里云源"><a href="#0x02-CentOS-配置-阿里云源" class="headerlink" title="0x02 CentOS 配置 阿里云源"></a>0x02 CentOS 配置 阿里云源</h2><ul>
+<li><p><a href="https://www.cnblogs.com/zgqbky/p/11722032.html" target="_blank" rel="noopener"><strong>CentOS7 配置阿里云yum源</strong></a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line">yum install bash-completion</span><br><span class="line">yum -y install lrzsz     </span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>   /etc/yum.repos.d/</span><br><span class="line">rm -rf    /etc/yum.repos.d/*.repo</span><br><span class="line">wget  http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-CentOS-配置-git"><a href="#0x03-CentOS-配置-git" class="headerlink" title="0x03 CentOS 配置 git"></a>0x03 CentOS 配置 git</h2><ul>
+<li><p><a href="https://www.cnblogs.com/nickchou/p/10931495.html" target="_blank" rel="noopener">centos 7 安装git并配置ssh</a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum -y install git</span><br><span class="line">git version</span><br><span class="line">rpm -qa |grep git</span><br><span class="line"></span><br><span class="line">git config --global user.name <span class="string">"xiaoxiaoc111"</span></span><br><span class="line">git config --global user.email <span class="string">"fzuxiaoxiaoc@gmail.com"</span></span><br><span class="line">git config --list</span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"fzuxiaoxiaoc@gmail.com"</span></span><br><span class="line">/root/.ssh/id_rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将位于/root/.ssh/id_rsa的id_rsa.pub添加到自己的github账户里面</span></span><br><span class="line"><span class="comment"># 登录github-点击头像-settings-SSH and GPG keys-New SSH key  添加一个新的ssh key</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># git clone git@github.com:yourname/xxx.git</span></span><br><span class="line">git <span class="built_in">clone</span> git@github.com:xiaoxiaoc111/flag.git</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x04-CentOS-配置-防火墙"><a href="#0x04-CentOS-配置-防火墙" class="headerlink" title="0x04 CentOS 配置 防火墙"></a>0x04 CentOS 配置 防火墙</h2><ul>
+<li><p><a href="https://blog.csdn.net/fakine/article/details/88057584" target="_blank" rel="noopener"><strong>CentOS 防火墙开放指定端口</strong></a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl start firewalld <span class="comment"># 启动</span></span><br><span class="line">systemctl status firewalld  <span class="comment"># 查看状态</span></span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld <span class="comment"># 停止</span></span><br><span class="line">systemctl stop firewalld <span class="comment"># 禁用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开放指定端口</span></span><br><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent   <span class="comment"># 开放80-TCP端口</span></span><br><span class="line">firewall-cmd --reload          <span class="comment"># 重新载入，使其生效                                                         </span></span><br><span class="line"><span class="comment"># 关闭指定端口</span></span><br><span class="line">firewall-cmd --zone=public --remove-port=80/tcp --permanent <span class="comment"># 关闭80-TCP端口</span></span><br><span class="line">firewall-cmd --reload          <span class="comment"># 重新载入，使其生效                                                                </span></span><br><span class="line"><span class="comment"># 查看端口状态</span></span><br><span class="line">firewall-cmd --zone=public --query-port=80/tcp       <span class="comment"># 查看端口状态</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x05-CentOS-配置-时间同步"><a href="#0x05-CentOS-配置-时间同步" class="headerlink" title="0x05 CentOS 配置 时间同步"></a>0x05 CentOS 配置 时间同步</h2><ul>
+<li><p><a href="https://www.cnblogs.com/zhi-leaf/p/6281549.html" target="_blank" rel="noopener"><strong>Linux下使用ntpdate进行时间同步</strong></a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1.安装ntpdate，执行以下命令</span></span><br><span class="line">yum install ntpdate -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.手工同步网络时间，执行以下命令，将从time.nist.gov同步时间</span></span><br><span class="line">ntpdate 0.asia.pool.ntp.org</span><br><span class="line"><span class="comment"># 若上面的时间服务器不可用，也可以选择以下服务器同步时间</span></span><br><span class="line"><span class="comment"># time.nist.gov</span></span><br><span class="line"><span class="comment"># time.nuri.net</span></span><br><span class="line"><span class="comment"># 0.asia.pool.ntp.org</span></span><br><span class="line"><span class="comment"># 1.asia.pool.ntp.org</span></span><br><span class="line"><span class="comment"># 2.asia.pool.ntp.org</span></span><br><span class="line"><span class="comment"># 3.asia.pool.ntp.org</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.使用crontab计划任务定时更新网络时间，修改crontab文件，在末尾增加* */1 * * * ntpdate 0.asia.pool.ntp.org，每隔1小时同步一次时间。</span></span><br><span class="line">vi /etc/crontab</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.使用date命令查看当前时间</span></span><br><span class="line">date</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.系统时间同步到硬件，防止系统重启后时间呗还原</span></span><br><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x06-CentOS-修改-分区"><a href="#0x06-CentOS-修改-分区" class="headerlink" title="0x06 CentOS 修改 分区"></a>0x06 CentOS 修改 分区</h2><ul>
+<li><p><a href="https://www.cnblogs.com/fang888/p/8124379.html" target="_blank" rel="noopener"><strong>Centos7 减少/home分区，扩大/root分区</strong></a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 把/home内容备份，然后将/home文件系统所在的逻辑卷删除，扩大/root文件系统，新建/home：</span></span><br><span class="line"><span class="comment"># 备份/home 没东西可以不备份记录一下 home下有多少可用空间 减去 2G 我的是：147-2=145G 可以用</span></span><br><span class="line">tar cvf /tmp/home.tar /home</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载/home，如果无法卸载，先终止使用/home文件系统的进程</span></span><br><span class="line">umount /home</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除/home所在的lv</span></span><br><span class="line">lvremove /dev/centos/home</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扩展/root所在的lv，增加145G</span></span><br><span class="line">lvextend -L +145G /dev/centos/root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 扩展/root文件系统</span></span><br><span class="line">xfs_growfs /dev/centos/root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新创建home lv 刚才 减去了2G 把2G中的1G分给 home就行</span></span><br><span class="line">lvcreate -L 1G -n home centos</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建文件系统</span></span><br><span class="line">mkfs.xfs /dev/centos/home</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载</span></span><br><span class="line">mount /dev/centos/home /home</span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x07-问题：SSH-登录时间过长"><a href="#0x07-问题：SSH-登录时间过长" class="headerlink" title="0x07 问题：SSH 登录时间过长"></a>0x07 问题：SSH 登录时间过长</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 问题现象：在网络延迟正常的情况下，使用ssh连接服务器过程中服务器响应时间过长</span></span><br><span class="line"><span class="comment"># 问题原因：服务器的ssh服务开启了DNS反解析导致响应时间过长 </span></span><br><span class="line"><span class="comment"># 解决办法：在ssh服务端配置文件中禁用DNS反解析：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以linux操作系统为例，在sshd配置文件/etc/ssh/sshd_config中添加如下配置</span></span><br><span class="line">UseDNS no</span><br><span class="line"><span class="comment"># 重载sshd服务</span></span><br><span class="line">systemctl reload sshd</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x08-问题：CentOS-U盘安装卡住"><a href="#0x08-问题：CentOS-U盘安装卡住" class="headerlink" title="0x08  问题：CentOS U盘安装卡住"></a>0x08  问题：CentOS U盘安装卡住</h2><ul>
+<li><p><a href="https://blog.51cto.com/mifan6/2070118" target="_blank" rel="noopener"><strong>centos7.4 U盘安装卡在 starting dracut initqueue hook</strong></a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 问题原因：默认的U盘位置找不到 ，需要改</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x09-问题：-根目录空间不足，软链接"><a href="#0x09-问题：-根目录空间不足，软链接" class="headerlink" title="0x09 问题： 根目录空间不足，软链接"></a>0x09 问题： 根目录空间不足，软链接</h2><ul>
+<li><p><a href="https://www.cnblogs.com/flyingeagle/articles/9219047.html" target="_blank" rel="noopener"><strong>Linux运用软链接解决目录空间不足</strong></a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 假设系统只有一个/分区。另加一块硬盘也只有一个分区，挂载在/new目录中</span></span><br><span class="line"><span class="comment"># /中的/usr和/home占用空间最多，想把这两个目录内容都转移到新硬盘中，可以用软链接。</span></span><br><span class="line"><span class="comment"># 就是用root身份登录，不启动其他程序，把/usr和/home移动到/new中。然后在/中建立两个软链接。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">mv /usr /new</span><br><span class="line">mv /home /new</span><br><span class="line">ln -s /new/usr /usr</span><br><span class="line">ln -s /new/home /home</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除软链接</span></span><br><span class="line"><span class="comment"># 正确的删除方式（删除软链接，但不删除实际数据）</span></span><br><span class="line"><span class="built_in">cd</span> /data/<span class="built_in">test</span>/</span><br><span class="line">rm -rf ./logs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 错误的删除方式(这样就会把原来的内容删除)</span></span><br><span class="line"><span class="built_in">cd</span> /data/<span class="built_in">test</span>/</span><br><span class="line">rm -rf ./logs/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>0x01_CentOS</category>
+      </categories>
+      <tags>
+        <tag>CentOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0x02_Kali</title>
+    <url>/2020/03/30/0x02_Kali/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了 Kali 的常用操作：  添加源、装输入法、改中文界面、汉化、安装ssh服务等。</p>
+<p>以及 Hashcat、Aircrack工具的使用。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="ReadMe"><a href="#ReadMe" class="headerlink" title="ReadMe"></a>ReadMe</h2><ul>
+<li><strong>Reference ：</strong>  </li>
+<li>DOWNLOAD KALI LINUX VIRTUAL IMAGES</li>
+</ul>
+<hr>
+<h2 id="0x00-下载镜像"><a href="#0x00-下载镜像" class="headerlink" title="0x00 下载镜像"></a>0x00 下载镜像</h2><ul>
+<li><a href="https://www.offensive-security.com/kali-linux-vm-vmware-virtualbox-image-download/" target="_blank" rel="noopener">DOWNLOAD KALI LINUX VIRTUAL IMAGES</a><ul>
+<li>虚拟机文件，直接用</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x01-添加-源"><a href="#0x01-添加-源" class="headerlink" title="0x01 添加 源"></a>0x01 添加 源</h2><ul>
+<li><blockquote>
+<p><a href="https://www.cnblogs.com/WaterGe/p/11067355.html" target="_blank" rel="noopener"><strong>Kali Linux 更新源</strong></a></p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加源</span></span><br><span class="line">vi  /etc/apt/sources.list</span><br><span class="line">deb http://http.kali.org/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://http.kali.org/kali kali-rolling main non-free contrib</span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb http://mirrors.zju.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">deb-src http://mirrors.zju.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line">apt-get update &amp;&amp;  apt-get upgrade &amp;&amp; apt-get autoremove &amp;&amp; apt-get autoclean</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x02-安装-输入法"><a href="#0x02-安装-输入法" class="headerlink" title="0x02 安装 输入法"></a>0x02 安装 输入法</h2><ul>
+<li><blockquote>
+<p><a href="https://www.cnblogs.com/zinuo/p/11006019.html" target="_blank" rel="noopener"><strong>Kali Linux 2019.2安装谷歌输入</strong></a></p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载deb </span></span><br><span class="line">dpkg -i  google-chrome...............deb</span><br><span class="line"><span class="comment"># 出现依赖问题</span></span><br><span class="line">apt-get -f install</span><br><span class="line"><span class="comment"># 修改权限</span></span><br><span class="line">vim /opt/google/chrome/google-chrome</span><br><span class="line"><span class="comment"># 找到 exec -a "$0" "$HERE/chrome" "$@" 添加</span></span><br><span class="line">--user-data-dir --no-sandbox</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-修改-中文界面"><a href="#0x03-修改-中文界面" class="headerlink" title="0x03 修改 中文界面"></a>0x03 修改 中文界面</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> LANG=<span class="string">"zh_CN.UTF-8"</span> &gt; /etc/default/locale</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x04-修改-汉化"><a href="#0x04-修改-汉化" class="headerlink" title="0x04 修改 汉化"></a>0x04 修改 汉化</h2><ul>
+<li><blockquote>
+<p><a href="https://www.bilibili.com/video/av88397295" target="_blank" rel="noopener">https://www.bilibili.com/video/av88397295</a><br><a href="https://www.bilibili.com/video/av87082028" target="_blank" rel="noopener">https://www.bilibili.com/video/av87082028</a><br><a href="https://www.bilibili.com/video/av87708271" target="_blank" rel="noopener">https://www.bilibili.com/video/av87708271</a></p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 文件下载：</span></span><br><span class="line">https://www.offensive-security.com/kali-linux-vm-vmware-virtualbox-image-download/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件名称：</span></span><br><span class="line">kali-linux-2020.1-vmware-amd64.7z</span><br><span class="line">admin/passwd  kali/kali</span><br><span class="line"></span><br><span class="line">apt-get update</span><br><span class="line">dpkg-reconfigure locales</span><br><span class="line">choose ： zh_CN.UTF-8 UTF-8  两次 空格</span><br><span class="line">apt-get install ttf-wqy-microhei  ttf-wqy-zenhei xfonts-wqy</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x05-修改-ssh服务"><a href="#0x05-修改-ssh服务" class="headerlink" title="0x05 修改 ssh服务"></a>0x05 修改 ssh服务</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改登录配置</span></span><br><span class="line">vi /etc/ssh/ssh_config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将#PasswordAuthentication no的注释去掉，并且将NO修改为YES //kali中默认是yes</span></span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 将PermitRootLogin without-password修改为PermitRootLogin yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动ssh服务</span></span><br><span class="line">/etc/init.d/ssh start</span><br><span class="line">/etc/init.d/ssh status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自启动ssh服务</span></span><br><span class="line">update-rc.d ssh <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x06-工具-hashcat"><a href="#0x06-工具-hashcat" class="headerlink" title="0x06 工具 hashcat"></a>0x06 工具 hashcat</h2><ul>
+<li><blockquote>
+<p> <a href="https://tomschwarz9.github.io/2019/04/15/hashcat" target="_blank" rel="noopener">hashcat-wifi暴力破解</a></p>
+<p><a href="https://evi1cg.me/archives/hashcat_crack_office.html" target="_blank" rel="noopener">使用hashcat破解加密office文件</a></p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 破解步骤：</span></span><br><span class="line"><span class="comment"># 1 先将 test.docx 用office2john.py 变为hash.txt</span></span><br><span class="line">python office2john.py test.docx &gt; hash.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 使用以下命令进行切割，转换成hashcat支持的形式：</span></span><br><span class="line">awk -F <span class="string">":"</span> <span class="string">'&#123;print $2&#125;'</span> hash.txt &gt; hashhc.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 用crunch制造字典  </span></span><br><span class="line">crunch 6 6 1234567890 -o passwd.txt  <span class="comment">#六位纯数字字典</span></span><br><span class="line">crunch 7 7 1234567890 -o passwd.txt  <span class="comment">#七位纯数字字典</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 用hashcat破解</span></span><br><span class="line">hashcat -m 9500 hashhc.txt  passwd.txt -o out.txt  (--force)</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hashcat 安装</span></span><br><span class="line"></span><br><span class="line">https://www.cnblogs.com/lidabo/p/8990348.html</span><br><span class="line">https://jingyan.baidu.com/article/0320e2c11564ca1b87507b8f.html</span><br><span class="line">安装MinGW安装  windows 编译文件</span><br><span class="line">https://hashcat.net/hashcat/</span><br><span class="line"></span><br><span class="line">hashcat 中文文档</span><br><span class="line">https://www.cnblogs.com/chenxi188/p/10709159.html</span><br><span class="line"></span><br><span class="line">hashcat 破解windowslinux密码 </span><br><span class="line">密码破解全能工具：Hashcat密码破解攻略</span><br><span class="line">https://www.freebuf.com/sectool/164507.html</span><br><span class="line">https://www.freebuf.com/column/175400.html</span><br><span class="line">https://www.freebuf.com/sectool/164507.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 破解wifi密码规则</span></span><br><span class="line"><span class="comment"># 密码破解推荐原则</span></span><br><span class="line"><span class="comment"># 破解时采取先易后难的原则，建议如下：</span></span><br><span class="line">（1）利用收集的公开字典进行破解</span><br><span class="line">（2）使用1-8位数字进行破解。</span><br><span class="line">（3）使用1-8位小写字母进行破解</span><br><span class="line">（4）使用1-8位大写字母进行破解</span><br><span class="line">（5）使用1-8位混合大小写+数字+特殊字符进行破解</span><br><span class="line"></span><br><span class="line">3.2 hashcat破解规则</span><br><span class="line">（1）字典攻击</span><br><span class="line">-a 0 password.lst</span><br><span class="line">（2）1到8为数字掩码攻击</span><br><span class="line">-a 3 --increment --increment-min 1--increment-max 8 ?d?d?d?d?d?d?d?d –O</span><br><span class="line">?d代表数字，可以换成小写字母?l，大写字母?u，特殊字符?s，大小写字母+特殊字符?a，–O表示最优化破解模式，可以加该参数，也可以不加该参数。</span><br><span class="line">（3）8为数字攻击</span><br><span class="line">-a 3 ?d?d?d?d?d?d?d?d</span><br><span class="line">同理可以根据位数设置为字母大写、小写、特殊字符等模式。</span><br><span class="line">（4）自定义字符</span><br><span class="line">现在纯数字或者纯字母的密码是比较少见的，根据密码专家对泄漏密码的分析，90%的个人密码是字母和数字的组合，可以是自定义字符了来进行暴力破解，Hashcat支持4个自定义字符集，分别是 -1 -2 -3 -4。定义时只需要这样-2  ?l?d ，然后就可以在后面指定?2，?2表示小写字母和数字。这时候要破解一个8位混合的小写字母加数字：</span><br><span class="line">Hashcat.exe -a 3 –force -2 ?l?d  hassh值或者<span class="built_in">hash</span>文件  ?2?2?2?2?2?2?2?2</span><br><span class="line">例如破解dz小写字母+数字混合8位密码破解：</span><br><span class="line">Hashcat -m 2611  -a 3 -2 ?l?d  dz.hash    ?2?2?2?2?2?2?2?2</span><br><span class="line">（5）字典+掩码暴力破解</span><br><span class="line">Hashcat还支持一种字典加暴力的破解方法，就是在字典前后再加上暴力的字符序列，比如在字典后面加上3为数字，这种密码是很常见的。使用第六种攻击模式：</span><br><span class="line">a-6 (Hybrid dict + mask)</span><br><span class="line">如果是在字典前面加则使用第7中攻击模式也即( a-7 = Hybridmask + dict)，下面对字典文件加数字123进行破解：</span><br><span class="line">H.exe -a 6 ffe1cb31eb084cd7a8dd1228c23617c8 password.lst ?d?d?d</span><br><span class="line">假如ffe1cb31eb084cd7a8dd1228c23617c8的密码为password123，则只要password.lst包含123即可。</span><br><span class="line"> （6）掩码+字典暴力破解</span><br><span class="line">H.exe -a 7 ffe1cb31eb084cd7a8dd1228c23617c8 password.lst ?d?d?d</span><br><span class="line">假如ffe1cb31eb084cd7a8dd1228c23617c8的密码为123password，则只要password.lst包含password即可。</span><br><span class="line">（7）大小写转换攻击，对password.lst中的单词进行大小写转换攻击</span><br><span class="line">H.exe<span class="_">-a</span> 2 ffe1cb31eb084cd7a8dd1228c23617c8 password.lst</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x07-工具-aircrack"><a href="#0x07-工具-aircrack" class="headerlink" title="0x07 工具 aircrack"></a>0x07 工具 aircrack</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ifconfig   <span class="comment">#wlan0</span></span><br><span class="line">airmon-ng</span><br><span class="line">service network-manager stop </span><br><span class="line">airmon-ng check <span class="built_in">kill</span></span><br><span class="line">airmon-ng start wlan0</span><br><span class="line">ifconfig   <span class="comment">#wlan-mon</span></span><br><span class="line">airodump-ng wlan0mon   ctrl +c</span><br><span class="line"></span><br><span class="line">airodump-ng -c 11 -bssid  <span class="built_in">test</span>-bssid -w /root wlan0mon</span><br><span class="line"><span class="comment"># bssid BC:5F:F6:61:CA:F8  client mac  3C:91:80:34:2B:85</span></span><br><span class="line"><span class="comment"># airodump-ng -c 11 --bssid BC:5F:F6:61:CA:F8  -w /root wlan0mon</span></span><br><span class="line">airodump-ng</span><br><span class="line">airodump-ng -c 11 --bssid BC:  -w /root wlan0mon</span><br><span class="line"><span class="comment"># aireplay-ng -02 -a BC:5F:F6:61:CA:F8  -c 3C:91:80:34:2B:85 wlan0mon</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字典破解</span></span><br><span class="line">gzip -d /usr/share/wordlists/rockyou.txt.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里顺便记录一下Kali中几个常用的字典文件的位置：</span></span><br><span class="line">　　/usr/share/john/password.lst</span><br><span class="line">　　/usr/share/wfuzz/wordlist</span><br><span class="line">　　/usr/share/ wordlists</span><br><span class="line"></span><br><span class="line"><span class="comment"># hashcat </span></span><br><span class="line">hashcat -m 2500 -a 3 test.hccap  ?d?d?d?d?d?d </span><br><span class="line">hashcat -m 2500 -a 3 test.hccap ?d?d?d?d --self-test-disable</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">https://www.cnblogs.com/diligenceday/p/6359661.html</span><br><span class="line">https://www.cnblogs.com/mark0/p/12245360.html</span><br><span class="line">https://www.cnblogs.com/h2zZhou/p/9474181.html</span><br><span class="line">https://www.freebuf.com/articles/wireless/179953.html</span><br><span class="line">https://github.com/v1s1t0r1sh3r3/airgeddon</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x08-工具-01-信息收集系列-（ing）"><a href="#0x08-工具-01-信息收集系列-（ing）" class="headerlink" title="0x08 工具 01_信息收集系列 （ing）"></a>0x08 工具 01_信息收集系列 （ing）</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">01-Information Gathering 信息收集</span><br><span class="line">dimtry</span><br><span class="line">介绍： 域名信息搜集工具&amp;tcp端口扫描工具</span><br><span class="line">用法： dmitry [-winsepfb] [-t 0-9] [-o %host.txt] host</span><br><span class="line">-o 将输出保存到％host.txt或由-o文件指定的文件</span><br><span class="line">-o 将输出保存到％host.txt或由-o文件指定的文件</span><br><span class="line">-i 对主机的IP地址执行whois查找</span><br><span class="line">-w 对主机的域名执行whois查找</span><br><span class="line">-n 在主机上检索Netcraft.com信息</span><br><span class="line">-s 执行搜索可能的子域</span><br><span class="line">-e 执行搜索可能的电子邮件地址</span><br><span class="line">-p 在主机上执行TCP端口扫描</span><br><span class="line">-f 在显示输出报告过滤端口的主机上执行TCP端口扫描</span><br><span class="line">-b 读取从扫描端口接收的banner</span><br><span class="line">-t 0-9扫描TCP端口时设置TTL（默认为2）</span><br><span class="line">Requires the -p 需要-p标记才能传递</span><br><span class="line">例子： dmitry -wpf test.com -o <span class="built_in">test</span></span><br><span class="line">ike-scan</span><br><span class="line">介绍： VPN安全检测工具</span><br><span class="line">用法：</span><br><span class="line">02-Vulnerability Analysis 漏洞分析</span><br><span class="line">03-Web Application Analysis web程序</span><br><span class="line">04-Database Assessment 数据库评估软件</span><br><span class="line">05-Password Attacks 密码攻击</span><br><span class="line">06-Wireless Attacks 无线攻击</span><br><span class="line">07-Reverse Engineeing 逆向工程</span><br><span class="line">08-Exploitation Tools 漏洞利用工具集</span><br><span class="line">09-Sniffing &amp; Spoofing 嗅探/欺骗</span><br><span class="line">10-Post Exploitation 权限维持</span><br><span class="line">11-Forensics 数据取证</span><br><span class="line">12-Reporting Tools 报告工具集</span><br><span class="line">13-Social Engineering Tools 社会工程学工具</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x09-工具-05-密码破解系列-（ing）"><a href="#0x09-工具-05-密码破解系列-（ing）" class="headerlink" title="0x09 工具 05-密码破解系列 （ing）"></a>0x09 工具 05-密码破解系列 （ing）</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">- - cewl</span><br><span class="line">  - crunch</span><br><span class="line">  - hashcat</span><br><span class="line">  - johnncrack</span><br><span class="line">  - ophcrack</span><br><span class="line">  - wordlists </span><br><span class="line">- cewl</span><br><span class="line">  - 通过爬行网站获取关键信息创建一个密码字典</span><br><span class="line">  - 例子： cewl 1.1.1.1 -m 3 -d 3 -e -c -v -w a.txt</span><br><span class="line">    - m 最小单词长度</span><br><span class="line">    - d 爬网深度</span><br><span class="line">    - e email</span><br><span class="line">    - c 单词计数</span><br><span class="line">    - v 详细</span><br><span class="line">    - w 保存到txt </span><br><span class="line">- 从上面我叙述这些命令就可以感觉到，Crunch比较死板，举个例子，获取QQ，电话，网址之类的，他不能根据所有信息生成一个总体字典，而是只能分布生成不同字典，也就是没有算法能力，缺少灵活性，它的优点就是因为死板所以能根据你的准确输入生成特定的字典。那关于Cupp和Cewl，这个也有大佬发表过文章了，我只稍微说一下，先附上大佬们的链接Cupp和Cewl基础。Cupp是根据一系列信息生成一个字典，信息比如你的名字电话外号之类的，也就是相对于Crunch有自己的算法，但是这个工具国内不太好用，起码连QQ号这种都没有。那Cewl，这其实和上面两个有区别，这个是从网页中爬取关键词然后组成字典，这个有个问题是把取得关键词有中文不会自己转译到pinyin，所以比较适合国外网站。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x0A-工具-Metasploit（ing）"><a href="#0x0A-工具-Metasploit（ing）" class="headerlink" title="0x0A 工具 Metasploit（ing）"></a>0x0A 工具 Metasploit（ing）</h2><ul>
+<li><blockquote>
+<p><a href="https://www.i0day.com/1736.html" target="_blank" rel="noopener">Metasploit渗透测试魔鬼训练营完整版(附环境) </a></p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>0x02_Kali</category>
+      </categories>
+      <tags>
+        <tag>Kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0x03_Ubuntu</title>
+    <url>/2020/03/31/0x03_Ubuntu/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了 Ubuntu 的常用操作： 安装 Sublime 、安装浏览器、设置fq 等。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="0x00-Readme"><a href="#0x00-Readme" class="headerlink" title="0x00 Readme"></a>0x00 Readme</h2><ul>
+<li>Reference :  无</li>
+</ul>
+<hr>
+<h2 id="0x01-安装-sublime"><a href="#0x01-安装-sublime" class="headerlink" title="0x01 安装 sublime"></a>0x01 安装 sublime</h2><ul>
+<li><blockquote>
+<p><a href="https://www.linuxidc.com/Linux/2019-03/157533.htm" target="_blank" rel="noopener">如何在Ubuntu 18.04中安装Sublime Text 3.2</a> </p>
+<p><a href="https://jingyan.baidu.com/article/59703552bc354d8fc007400e.html" target="_blank" rel="noopener">不用补丁，sublime text 3 本身 设置中文方法</a> </p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sublime</span></span><br><span class="line">wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://download.sublimetext.com/ apt/stable/"</span> | sudo tee /etc/apt/sources.list.d/sublime-text.list</span><br><span class="line">sudo apt update &amp;&amp; sudo apt install sublime-text</span><br><span class="line"></span><br><span class="line"><span class="comment">#要删除编辑器，请运行命令：</span></span><br><span class="line">sudo apt remove --autoremove sublime-text</span><br><span class="line"></span><br><span class="line"><span class="comment"># sublime 中文</span></span><br><span class="line"> Tools-&gt;Install Package Control  - package control</span><br><span class="line"> Tools-&gt;Command Palette...</span><br><span class="line"> ipc ,点击 Install Package Control，调出 Package Control</span><br><span class="line"> Preferences-&gt;Package Control 输入ip，点击“install Package” 输入clz</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x02-登录-root权限"><a href="#0x02-登录-root权限" class="headerlink" title="0x02 登录 root权限"></a>0x02 登录 root权限</h2><ul>
+<li><blockquote>
+<p><a href="https://www.bbsmax.com/A/KE5QjmYqdL/" target="_blank" rel="noopener">关于 Ubuntu Linux 16.04中文版的 root 权限及桌面登录问题</a> </p>
+<p><a href="https://blog.csdn.net/niepangu/article/details/52771802" target="_blank" rel="noopener">Ubuntu启用root账户后，登录root账户时报错：读取/root/.profile时发现错误：mesg:ttyname failed:对设备不适当的ioctl操作 作为结果，会话不会被正确配置</a> </p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> usr/share/lightdm/lightdm.conf.d</span><br><span class="line">sudo vim 50-unity-greeter.conf　</span><br><span class="line">    greeter-show-manual-login=<span class="literal">true</span>       <span class="comment">#手工输入登录系统的用户名和密码</span></span><br><span class="line">    allow-guest=<span class="literal">false</span>                    <span class="comment">#不允许guest登录</span></span><br><span class="line"></span><br><span class="line">vi /root/.profile</span><br><span class="line"><span class="comment"># mesg n”替换为“tty -s &amp;&amp; mesg n</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-设置-fq"><a href="#0x03-设置-fq" class="headerlink" title="0x03 设置 fq"></a>0x03 设置 fq</h2><ul>
+<li><blockquote>
+<p><a href="http://scarhett.com/index.php/2018/04/18/01/" target="_blank" rel="noopener">如果主机可以翻墙 可以配置 系统代理 用主机的ip进行翻墙</a></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="0x04-安装-浏览器"><a href="#0x04-安装-浏览器" class="headerlink" title="0x04 安装 浏览器"></a>0x04 安装 浏览器</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/</span><br><span class="line"></span><br><span class="line">wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install google-chrome-stable</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>0x03_Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0x04_Windows</title>
+    <url>/2020/04/02/0x04_Windows/</url>
+    <content><![CDATA[<blockquote>
+<p> Windows 操作记录</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="ReadMe"><a href="#ReadMe" class="headerlink" title="ReadMe"></a>ReadMe</h2><ul>
+<li><strong>Reference ：</strong></li>
+</ul>
+<hr>
+<h2 id="0x01-安装-python"><a href="#0x01-安装-python" class="headerlink" title="0x01 安装 python"></a>0x01 安装 python</h2><ul>
+<li><a href="https://www.cnblogs.com/wqzn/p/10424565.html" target="_blank" rel="noopener">安装python3和python2</a></li>
+</ul>
+<h2 id="0x02-制作-启动U盘"><a href="#0x02-制作-启动U盘" class="headerlink" title="0x02 制作 启动U盘"></a>0x02 制作 启动U盘</h2><ul>
+<li><blockquote>
+<p>以下介绍的是如何用微软提供的资源制作 Windows 10 的安装 U 盘。</p>
+<p>直接访问 <a href="http://www.microsoft.com/zh-cn/software-download/windows10" target="_blank" rel="noopener">www.microsoft.com/zh-cn/software-download/windows10</a> 可以得到微软提供的全自动制作 Windows 10 安装介质的工具“MediaCreationTool” 。不过这个工具下载数据的速度常常不理想。</p>
+<p>如果将浏览器的 User Agent 修改为某个移动浏览器 weibo.com/1401527553/HjP6CzWVl，再去访问 <a href="http://www.microsoft.com/zh-cn/software-download/windows10" target="_blank" rel="noopener">www.microsoft.com/zh-cn/software-download/windows10</a> 就会被定向到一个可以下载 Windows 10 的 ISO 的页面。当前最新简体中文版的 ISO 是 Win10_1903_V1_Chinese(Simplified)_x64.iso，这个和 MSDN 订阅用户可下载的 cn_windows_10_consumer_editions_version_1903_x64_dvd_8f05241d.iso 是同一个文件。</p>
+<p>下载后可用 Windows 自带的命令行工具 certutil 校验文件 HASH：</p>
+<p>certutil -hashfile “Win10_1903_V1_Chinese(Simplified)_x64.iso”</p>
+<p>正确的值是 CF1E64128585B6DDF7CC53D91758D7B0F836B863。</p>
+<p>微软曾为 Windows 7 提供了一个 Windows USB/DVD Download Tool <a href="http://www.microsoft.com/en-us/download/details.aspx?id=56485，可从" target="_blank" rel="noopener">www.microsoft.com/en-us/download/details.aspx?id=56485，可从</a> ISO 文件制作自启动 U 盘安装介质。这个工具也适用于 Windows 10。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="0x03-封装-系统"><a href="#0x03-封装-系统" class="headerlink" title="0x03 封装 系统"></a>0x03 封装 系统</h2><ul>
+<li><blockquote>
+<p>1 虚拟机安装原版win10</p>
+<p>2 更新安全补丁 ，删除所有驱动</p>
+<p>3 部署驱动安全软件，个性化电脑</p>
+<p>4 设置系统封装工具，安装一键备份还原软件 </p>
+</blockquote>
+</li>
+<li><p><a href="http://www.yishimei.cn/network/706.html" target="_blank" rel="noopener">十分钟学会win10系统封装之系列教程</a> </p>
+</li>
+</ul>
+<h2 id="0x04-添加-家庭版远程桌面"><a href="#0x04-添加-家庭版远程桌面" class="headerlink" title="0x04 添加 家庭版远程桌面"></a>0x04 添加 家庭版远程桌面</h2><ul>
+<li><a href="https://blog.csdn.net/KotaTsuchiya/article/details/102908397" target="_blank" rel="noopener">Win10多用户远程桌面软件RDP Wrapper Library</a></li>
+<li><a href="https://github.com/stascorp/rdpwrap" target="_blank" rel="noopener">https://github.com/stascorp/rdpwrap</a></li>
+</ul>
+<h2 id="0x05-激活-win10"><a href="#0x05-激活-win10" class="headerlink" title="0x05 激活 win10"></a>0x05 激活 win10</h2><ul>
+<li><a href="https://jingyan.baidu.com/article/9113f81b4d49232b3314c75e.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/9113f81b4d49232b3314c75e.html</a></li>
+<li><a href="https://www.lanzous.com/i31wlpc" target="_blank" rel="noopener">https://www.lanzous.com/i31wlpc</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>0x04_Windows</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0x05_Docker</title>
+    <url>/2020/04/04/0x05_Docker/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了 Docker 的常用操作：  安装 Docker 和 Docker-compose </p>
+<p>部署了 Dvwa、Habor、Wordpress、Kali-MSF 、Hexo 等应用。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="0x00-Readme"><a href="#0x00-Readme" class="headerlink" title="0x00 Readme"></a>0x00 Readme</h2><ul>
+<li>Reference :   <a href="https://book.douban.com/subject/30486354/" target="_blank" rel="noopener">深入浅出Docker</a></li>
+</ul>
+<hr>
+<h2 id="0x01-Docker-快速上手"><a href="#0x01-Docker-快速上手" class="headerlink" title="0x01 Docker 快速上手"></a>0x01 Docker 快速上手</h2><h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装必要的系统工具</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="comment"># 添加软件源信息</span></span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 更新 yum 缓存</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"><span class="comment"># 安装 Docker-ce</span></span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line"><span class="comment"># 启动 Docker 后台服务</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"><span class="comment"># 测试运行 hello-world</span></span><br><span class="line">docker run hello-world</span><br><span class="line"><span class="comment"># 设置daemon.json 加快docker pull 速度</span></span><br><span class="line">vi /etc/docker/daemon.json :wq </span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"registry-mirrors"</span>: [<span class="string">"https://9cpn8tt6.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装-Docker-Compose"><a href="#安装-Docker-Compose" class="headerlink" title="安装 Docker-Compose"></a>安装 Docker-Compose</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 离线安装</span></span><br><span class="line"><span class="comment"># 到 https://github.com/docker/compose/releases 下载 </span></span><br><span class="line"><span class="comment"># 将 docker-compose-Linux-x86_64 上传到机器上 </span></span><br><span class="line">sudo mv docker-compose-Linux-x86_64 /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">docker-compose -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在线安装（github太慢了）</span></span><br><span class="line"> curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> docker-compose -v</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="常用-命令"><a href="#常用-命令" class="headerlink" title="常用 命令"></a>常用 命令</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># docker 常用命令</span></span><br><span class="line">docker version</span><br><span class="line">docker info</span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line">docker image ls</span><br><span class="line">docker images</span><br><span class="line">docker container ls -a</span><br><span class="line">docker ps</span><br><span class="line">docker container run -it &lt;image&gt;:&lt;tag&gt; &lt;app&gt;</span><br><span class="line">docker <span class="built_in">exec</span> -it &lt;image&gt;:&lt;tag&gt; &lt;app&gt;</span><br><span class="line">docker container stop &lt;container id&gt;</span><br><span class="line">docker container rm &lt;container id&gt;</span><br><span class="line">docker container inspect &lt;container name&gt;</span><br><span class="line">docker container inspect &lt;container id&gt;</span><br><span class="line">docker container run --name &lt;name&gt; -it --restart always &lt;image&gt; &lt;app&gt;</span><br><span class="line">ctrl-p-q   <span class="comment">#退出容器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker 镜像命令</span></span><br><span class="line">docker login</span><br><span class="line">docker image build -t &lt;image name&gt;:&lt;tag&gt; .</span><br><span class="line">docker image tag &lt;image name1&gt;:&lt;tag&gt; &lt;imagename2&gt;:&lt;tag&gt;</span><br><span class="line">docker image push &lt;image name1&gt;:&lt;tag&gt;</span><br><span class="line">docker image <span class="built_in">history</span> &lt;image name&gt;:&lt;tag&gt;</span><br><span class="line">docker image inspect &lt;image name&gt;:&lt;tag&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># docker-compose 命令</span></span><br><span class="line"><span class="comment"># &amp; 运行在前台 -d 运行在后台</span></span><br><span class="line">docker-compose up &amp;</span><br><span class="line">docker-compose up -d</span><br><span class="line">docker-compose -f test.yml up</span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose top</span><br><span class="line">docker-compose restart</span><br><span class="line">docker-compose rm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看镜像&amp;容器&amp;网络&amp;卷</span></span><br><span class="line">docker image ls</span><br><span class="line">docker contianer ls</span><br><span class="line">docker network ls</span><br><span class="line">docker volume ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实时更改容器内容</span></span><br><span class="line"><span class="comment"># 看一下volume位置在哪，vi修改内容，然后cp</span></span><br><span class="line">docker volume ls</span><br><span class="line">vi app.py</span><br><span class="line">docker volume inspect <span class="built_in">test</span> |grep Mount cp ~/<span class="built_in">test</span>/app.py /var/lib/docker/volumes/<span class="built_in">test</span>/_data/app.py</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="常用-命令-批量删除已退出的docker容器"><a href="#常用-命令-批量删除已退出的docker容器" class="headerlink" title="常用 命令 批量删除已退出的docker容器"></a>常用 命令 批量删除已退出的docker容器</h3><ul>
+<li><p><a href="https://blog.csdn.net/jiangeeq/article/details/79499324" target="_blank" rel="noopener">如何批量删除Docker中已经停止的容器</a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">方法一：</span><br><span class="line"><span class="comment">#显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID，</span></span><br><span class="line">sudo docker ps -a|grep Exited|awk <span class="string">'&#123;print $1&#125;'</span></span><br><span class="line"><span class="comment">#查询所有的容器，过滤出Exited状态的容器，列出容器ID，删除这些容器</span></span><br><span class="line">sudo docker rm `docker ps -a|grep Exited|awk <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line"></span><br><span class="line">方法二： </span><br><span class="line"><span class="comment">#删除所有未运行的容器（已经运行的删除不了，未运行的就一起被删除了）</span></span><br><span class="line">sudo docker rm $(sudo docker ps -a -q)</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"><span class="comment">#根据容器的状态，删除Exited状态的容器</span></span><br><span class="line">sudo docker rm $(sudo docker ps -qf status=exited)</span><br><span class="line"> </span><br><span class="line">方法四：</span><br><span class="line"><span class="comment">#Docker 1.13版本以后，可以使用 docker containers prune 命令，删除孤立的容器。</span></span><br><span class="line">sudo docker container prune</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="概念-理解-Dockerfile-和-Docker区别"><a href="#概念-理解-Dockerfile-和-Docker区别" class="headerlink" title="概念 理解 Dockerfile 和 Docker区别"></a>概念 理解 Dockerfile 和 Docker区别</h3><ul>
+<li><blockquote>
+<p>从头说起。假如你不用 docker ，搭建 wordpress 怎么弄？</p>
+<ul>
+<li>先找台 server ，假设其 OS 为 Ubuntu ，然后按照文档一步步敲命令，写配置，对吧？</li>
+<li>用 docker 呢？ 随便找台 server ，不管什么操作系统，只要支持 docker 就行， docker run ubuntu, docker 会从官方源里拉取最新的 Ubuntu 镜像，可以认为你开了个 Ubuntu 虚拟机，然后一步步安装，跟上面一样。但是这样安装有个显著的缺点，一旦 container 被删，你做的工作就都没了。当然可以用 docker commit 来保存成镜像，这样就可以复用了。但是镜像一般比较大，而且只分享镜像的话，别人也不知道你这镜像到底包含什么，这些问题都不利于分享和复用。</li>
+<li>一个直观的解决方案就是，写个脚本把安装过程全部记录下来，这样再次安装的时候，执行脚本就行了。 Dockerfile 就是这样的脚本，它记录了一个镜像的制作过程。有了 Dockerfile, 只要执行 docker build . 就能制作镜像，而且 Dockerfile 就是文本文件，修改也很方便。现在有了 wordpress 的镜像，只需要 docker run 就把 wordpress 启动起来了。</li>
+<li>如果仅仅是 wordpress, 这也就够了。但是很多时候，需要多个镜像合作才能启动一个服务，比如前端要有 nginx ， 数据库 mysql, 邮件服务等等，当然你可以把所有这些都弄到一个镜像里去，但这样做就无法复用了。更常见的是, nginx, mysql, smtp 都分别是个镜像，然后这些镜像合作，共同服务一个项目。</li>
+<li>docker-compose 就是解决这个问题的。你的项目需要哪些镜像，每个镜像怎么配置，要挂载哪些 volume, 等等信息都包含在 docker-compose.yml 里。要启动服务，只需要 docker-compose up 就行，停止也只需要 docker-compse stop/down简而言之， Dockerfile 记录单个镜像的构建过程， docker-compse.yml 记录一个项目(project, 一般是多个镜像)的构建过程。</li>
+<li>你说有些教程用了 dockerfile+docker-compose, 是因为 docker-compose.yml 本身没有镜像构建的信息，如果镜像是从 docker registry 拉取下来的，那么 Dockerfile 就不需要；如果镜像是需要 build 的，那就需要提供 Dockerfile.说了好多废话，也比较低级浅显，贻笑大方了。 </li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="0x02-Docker-部署-Dvwa"><a href="#0x02-Docker-部署-Dvwa" class="headerlink" title="0x02 Docker 部署 Dvwa"></a>0x02 Docker 部署 Dvwa</h2><ul>
+<li><blockquote>
+<p>使用 Dvwa 学习 OWASP Top 10</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1.部署环境</span></span><br><span class="line"><span class="comment"># 环境：win10_vmware15_centos7.4minimal</span></span><br><span class="line"><span class="comment"># 配置：20G硬盘 2G内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 docker</span></span><br><span class="line"><span class="comment"># 安装必要的系统工具</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="comment"># 添加软件源信息</span></span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 更新 yum 缓存</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"><span class="comment"># 安装 Docker-ce：</span></span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line"><span class="comment"># 启动 Docker 后台服务</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line"><span class="comment"># 测试运行 hello-world</span></span><br><span class="line">docker run hello-world</span><br><span class="line"><span class="comment"># 设置daemon.json 加快docker pull 速度</span></span><br><span class="line">vi /etc/docker/daemon.json    :wq  (注意json格式)</span><br><span class="line">	  &#123;</span><br><span class="line">            <span class="string">"registry-mirrors"</span>: [<span class="string">"https://9cpn8tt6.mirror.aliyuncs.com"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line">systemctl <span class="built_in">enable</span>  docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.docker 部署 lamp 容器</span></span><br><span class="line">docker search lamp</span><br><span class="line">docker pull tutum/lamp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行lamp容器</span></span><br><span class="line">docker run -it -p 80:80 --name lamp tutum/lamp /bin/bash </span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器里执行</span></span><br><span class="line">docke <span class="built_in">exec</span> -it lamp /bin/bash</span><br><span class="line">./run.sh</span><br><span class="line"><span class="comment"># ctrl +c 终止</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql内操作</span></span><br><span class="line">mysql -u root -p  &lt;空格&gt;</span><br><span class="line">	&gt;  <span class="built_in">set</span> password <span class="keyword">for</span> root@localhost = password(<span class="string">'123456'</span>);</span><br><span class="line">	&gt;  GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">	&gt;  GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'localhost'</span>;</span><br><span class="line">	&gt;  drop user admin@<span class="string">'%'</span>;</span><br><span class="line">	&gt;  <span class="built_in">exit</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 3. docker 导入 dvwa</span></span><br><span class="line"><span class="comment"># &lt;http://www.dvwa.co.uk/&gt;  官网下载dvwa fq会快一点</span></span><br><span class="line"><span class="comment"># 将DVWA-master文件使用xftp从主机导入到虚拟机</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入vmware 导入docker  </span></span><br><span class="line">docker ps <span class="comment"># 查看containerid</span></span><br><span class="line">docker cp DVWA-master &lt;containerid&gt;:/</span><br><span class="line">docker attach containerid</span><br><span class="line"><span class="built_in">cd</span> /var/www/html</span><br><span class="line">rm -rf ./*   <span class="comment">#删除默认网页</span></span><br><span class="line"><span class="built_in">cd</span> /DVWA-master</span><br><span class="line">cp -r ./* /var/www/html</span><br><span class="line">service apache2 start</span><br><span class="line">netstat -nltp |grep 80</span><br><span class="line"><span class="built_in">cd</span> /var/www/html/config</span><br><span class="line">cp config.inc.php.dist  config.inc.php</span><br><span class="line">vi config.inc.php</span><br><span class="line"><span class="comment"># 测试环境建议修改密码为123456或者其他弱密码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 4. 保存dvwa容器镜像进行复用</span></span><br><span class="line"><span class="comment"># 使用docker commit 保存为镜像  #&lt;user&gt; 是自定义用户名，自行修改</span></span><br><span class="line"></span><br><span class="line">docker commit -m<span class="string">"&lt;user&gt;-dvwa"</span> -a <span class="string">"&lt;user&gt;"</span> containerid &lt;user&gt;dvwa</span><br><span class="line">docker ps</span><br><span class="line">docker <span class="built_in">export</span> containerid  &gt;  &lt;user&gt;_docker_dvwa.tar</span><br><span class="line">docker import &lt;user&gt;_docker_dvwa.tar  &lt;user&gt;/dvwa</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 5. 容器复用，导入到新的机器 </span></span><br><span class="line"><span class="comment"># 将镜像导入到新机器</span></span><br><span class="line">docker import littlec_docker_dvwa.tar  littlec/dvwa</span><br><span class="line">docker run -itd --name dvwa -p 90:80 -p 3316:3306 littlec/dvwa /bin/bash</span><br><span class="line">docker <span class="built_in">exec</span> -it  dvwa /bin/bash</span><br><span class="line">	<span class="comment"># 容器内操作</span></span><br><span class="line">	service apache2 start</span><br><span class="line">	netstat -nltp |grep 80</span><br><span class="line">	<span class="built_in">exit</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问IP加端口就可以看到dvwa界面</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 问题解决：service mysql start falied</span></span><br><span class="line"><span class="comment"># 初始化mysqld.sh 脚本运行 重新设置mysql</span></span><br><span class="line"><span class="comment"># service mysql start</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 6. 相关问题解决</span></span><br><span class="line"><span class="comment"># 问题描述：如果导入的dvwa不能运行怎么办？</span></span><br><span class="line"><span class="comment"># 原因分析：数据库不一致，需要重新设置。</span></span><br><span class="line"><span class="comment"># 解决方案：重新设置mysql</span></span><br><span class="line"> </span><br><span class="line">mysql -u root -p &lt;空格&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在mysql里面操作，设置密码&amp;加权限&amp;删用户</span></span><br><span class="line">	&gt; <span class="built_in">set</span> password <span class="keyword">for</span> root@localhost = password(<span class="string">'123456'</span>);</span><br><span class="line">	&gt; GRANT ALL PRIVILEGES ON . TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">	&gt; GRANT ALL PRIVILEGES ON . TO <span class="string">'root'</span>@<span class="string">'localhost'</span>;</span><br><span class="line">	&gt; drop user admin@<span class="string">'%'</span>;</span><br><span class="line">	&gt; <span class="built_in">exit</span>；</span><br><span class="line">ctrl+p ctrl+q</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问IP加端口就可以看到dvwa界面</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-Docker-部署-Habor"><a href="#0x03-Docker-部署-Habor" class="headerlink" title="0x03 Docker 部署 Habor"></a>0x03 Docker 部署 Habor</h2><ul>
+<li><blockquote>
+<ul>
+<li>所有加载的镜像都会放在Habor仓库中</li>
+<li>Habor会比docker原有的仓库好用，有管理界面</li>
+<li><a href="https://www.jb51.net/article/176809.htm" target="_blank" rel="noopener">Docker搭建私有仓库(registry与Harbor)的实现</a> </li>
+<li><a href="https://storage.googleapis.com/harbor-releases/release-1.9.0/harbor-offline-installer-v1.9.1.tgz" target="_blank" rel="noopener">harbor-offline-installer-v1.9.1.tgz文档下载</a>  FQ会快一点</li>
+</ul>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1.环境准备</span></span><br><span class="line"><span class="comment"># 安装好docker和docker-compose</span></span><br><span class="line">$ docker -v</span><br><span class="line">Docker version 19.03.5, build 633a0ea</span><br><span class="line">$ docker-compose -v</span><br><span class="line">docker-compose version 1.25.0, build 0a186604</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 2.搭建Habor</span></span><br><span class="line">wget https://storage.googleapis.com/harbor-releases/release-1.9.0/harbor-offline-installer-v1.9.1.tgz</span><br><span class="line">tar zxf harbor-offline-installer-v1.9.1.tgz -C /usr/<span class="built_in">local</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/harbor/</span><br><span class="line"></span><br><span class="line">vim harbor.yml</span><br><span class="line"><span class="comment"># 编写其配置文件，其他版本默认是cfg结尾的，这个版本是yml结尾的，文件内容都一样的</span></span><br><span class="line">hostname: 192.168.1.1         <span class="comment"># 更改其为本机的IP地址</span></span><br><span class="line">harbor_admin_password: Harbor12345    <span class="comment"># 设置为tophant@017</span></span><br><span class="line"><span class="comment"># 这一行原本就是存在，不需要自行填写，只需记得它的用户名和密码即可，有需要可以自行进行修改</span></span><br><span class="line"></span><br><span class="line">./install.sh         <span class="comment"># 执行安装脚本</span></span><br><span class="line"></span><br><span class="line">vim /usr/lib/systemd/system/docker.service</span><br><span class="line"><span class="comment"># 编写docker主配置文件</span></span><br><span class="line">13 ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.1</span><br><span class="line"><span class="comment"># 跟registry差不多，主要harbor配置文件中没有填写端口号，这里也可添加，否则可能会出现错误</span></span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker      <span class="comment"># 重新启动docker服务</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/usr/<span class="built_in">local</span>/harbor   </span><br><span class="line"></span><br><span class="line">docker-compose start</span><br><span class="line"><span class="comment"># 使用docker-compose工具启动所有容器（因为在重新启动docker时，所有的容器都已经关闭了）</span></span><br><span class="line"></span><br><span class="line">yum -y install net-tools <span class="comment"># 安装网络工具</span></span><br><span class="line">$ netstat -anpt | grep 80     <span class="comment"># 确认80端口在监听</span></span><br><span class="line">tcp    0   0 172.18.0.1:33780    172.18.0.5:10514    ESTABLISHED 70076/docker-proxy</span><br><span class="line">tcp6    0   0 :::80          :::*          LISTEN   72870/docker-proxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问 &lt;ip&gt; admin/tophant@017 或者 Harbor12345</span></span><br><span class="line">pw</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 3.集群配置仓库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在另外一台centos配置habor认证信息</span></span><br><span class="line">vi /etc/docker/daemon.json  :wq</span><br><span class="line"><span class="comment"># 添加参数，不要忘记在上一个参数后加个逗号 ，</span></span><br><span class="line"><span class="string">"insecure-registries"</span>: [<span class="string">"192.168.1.253"</span>]</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line">docker login ip <span class="comment">#输入admin/tophant@017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送镜像测试</span></span><br><span class="line">docker pull alpine:latest</span><br><span class="line">docke tag alpine:latest &lt;ip&gt;/&lt;registry&gt;/alpine:latest</span><br><span class="line">docker push &lt;ip&gt;/&lt;registry&gt;/alpine:latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问 &lt;ip&gt; admin/tophant@017 验证</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x04-Docker-部署-Wordpress"><a href="#0x04-Docker-部署-Wordpress" class="headerlink" title="0x04 Docker 部署 Wordpress"></a>0x04 Docker 部署 Wordpress</h2><ul>
+<li><blockquote>
+<p><a href="https://www.jianshu.com/p/2faca4e1f6fb" target="_blank" rel="noopener">使用docker在CentOS7上搭建WordPress</a></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 安装 Docker</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">systemctl start docker</span><br><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 设置角色</span></span><br><span class="line">groupadd docker</span><br><span class="line">useradd -g docker docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 创建 WordPress 容器</span></span><br><span class="line">docker pull wordpress:latest</span><br><span class="line">docker pull mysql:5.6</span><br><span class="line">docker run -d --privileged=<span class="literal">true</span> --name myMysql -v /data/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -p 33306:3306 mysql:5.6</span><br><span class="line">docker ps</span><br><span class="line">docker run -d --name mwp -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_PASSWORD=123456 -p 1080:80 --link myMysql:mysql wordpress</span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x05-Docker-部署-Kali-MSF"><a href="#0x05-Docker-部署-Kali-MSF" class="headerlink" title="0x05 Docker 部署 Kali-MSF"></a>0x05 Docker 部署 Kali-MSF</h2><ul>
+<li><blockquote>
+<p><a href="https://www.evil-qinghua.me/2019/04/15/msf/" target="_blank" rel="noopener">利用Docker安装kali进而部署msf</a></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装 Docker</span></span><br><span class="line">lsb-release -a</span><br><span class="line">yum install -y redhat-lsb</span><br><span class="line">yum install -y docker</span><br><span class="line">docker --version</span><br><span class="line">systemctl start docker </span><br><span class="line">systemctl status docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行 Kali 容器</span></span><br><span class="line">docker pull kalilinux/kali-linux-docker</span><br><span class="line">docker run -it -d --name=kali  kalilinux/kali-linux-docker</span><br><span class="line">docker <span class="built_in">exec</span> -ti mycentos /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 操作 Kali 容器</span></span><br><span class="line">	apt-get -y update</span><br><span class="line">	apt-get -y --force-yes install ruby metasploit-framework</span><br><span class="line">	service postgresql start</span><br><span class="line">	netstat -pantu |grep 5432</span><br><span class="line">	msfdb init</span><br><span class="line">	msfconsole</span><br><span class="line">	<span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x07-Docker-部署-Hexo"><a href="#0x07-Docker-部署-Hexo" class="headerlink" title="0x07 Docker 部署 Hexo"></a>0x07 Docker 部署 Hexo</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 环境：win10_vmware15_centos7.4</span></span><br><span class="line"><span class="comment"># 安装了 docker和 docker-compose</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 运行CentOS容器</span></span><br><span class="line">docker run -tdi --name hexo-blog -p 80:4000 -v /home/ss/hexo-blog/:/home/blog centos:7 /bin/bash</span><br><span class="line">docker <span class="built_in">exec</span> -it hexo-blog /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. CentOS 容器内操作</span></span><br><span class="line"><span class="comment"># 安装git node </span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/opt</span><br><span class="line">yum -y install git-core</span><br><span class="line">yum -y install wget</span><br><span class="line">wget https://npm.taobao.org/mirrors/node/v12.16.0/node-v12.16.0-linux-x64.tar.gz</span><br><span class="line">tar -zxvf node-v12.16.0-linux-x64.tar.gz</span><br><span class="line">rm -rf node-v12.16.0-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试node是否安装成功</span></span><br><span class="line">/opt/node-v12.16.0-linux-x64/bin/./node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决容器内中文乱码</span></span><br><span class="line">yum install kde-l10n-Chinese -y</span><br><span class="line">yum install glibc-common -y</span><br><span class="line">localedef -c -f UTF-8 -i zh_CN zh_CN.utf8</span><br><span class="line"></span><br><span class="line">vi /etc/profile :wq</span><br><span class="line"><span class="comment"># 设置 nodejs 环境变量，在 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL 一行的上面添加如下内容</span></span><br><span class="line"><span class="built_in">export</span> NODE_HOME=/opt/node-v12.16.0-linux-x64</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$NODE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LC_ALL=zh_CN.utf8</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出现bash：hexo command not found 时候要加到bashrc</span></span><br><span class="line"><span class="built_in">cd</span> /root</span><br><span class="line">vi .bashrc :wq</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 安装 Hexo</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home</span><br><span class="line">git <span class="built_in">clone</span> https://git.oschina.net/neoFelhz/hexokit.git</span><br><span class="line"><span class="built_in">cd</span> hexokit</span><br><span class="line">cp -r * /home/blog </span><br><span class="line"><span class="built_in">cd</span> /home/blog</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">hexo g -d</span><br><span class="line">hexo s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问 localhost:4000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 配置github-hexo</span></span><br><span class="line"></span><br><span class="line">vi _config.yml  :wq</span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/xiaoxiaoc111/xiaoxiaoc111.github.io.git</span><br><span class="line"></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 配置ssh</span></span><br><span class="line">git config --global user.name <span class="string">"xiaoxiaoc111"</span></span><br><span class="line">git config --global user.email <span class="string">"fzuxiaoxiaoc@gmail.com"</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"fzuxiaoxiaoc@gmail.com"</span></span><br><span class="line">/root/.ssh/id_rsa</span><br><span class="line"><span class="comment"># 将位于/root/.ssh/id_rsa的id_rsa.pub添加到自己的github账户里面</span></span><br><span class="line"><span class="comment"># 登录github-点击头像-settings-SSH and GPG keys-New SSH key  添加一个新的ssh key</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 访问 github io</span></span><br><span class="line">https://xiaoxiaoc111.github.io/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x06-Others-ing"><a href="#0x06-Others-ing" class="headerlink" title="0x06 Others (ing)"></a>0x06 Others (ing)</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Docker  部署 Nginx</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="0x07-问题-Docker-容器内中文乱码"><a href="#0x07-问题-Docker-容器内中文乱码" class="headerlink" title="0x07 问题 Docker 容器内中文乱码"></a>0x07 问题 Docker 容器内中文乱码</h2><ul>
+<li><blockquote>
+<p> <a href="https://www.cnblogs.com/djlsunshine/p/11282867.html" target="_blank" rel="noopener">解决 Docker 容器中 Centos7 系统的中文乱码</a></p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>0x05_Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0x06_Hexo</title>
+    <url>/2020/04/05/0x06_Hexo/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了 Hexo 的常用操作： 搭建 CentOS 容器，部署了 Hexo。</p>
+<p>进行了修改主题、绑定 GithubPage 、域名等操作。</p>
+<p><strong>lb’s Notes 基于 Hexo-NexT 部署</strong></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="0x00-ReadMe"><a href="#0x00-ReadMe" class="headerlink" title="0x00 ReadMe"></a>0x00 ReadMe</h2><ul>
+<li><p><strong>Reference :</strong> <a href="https://blog.csdn.net/Jop_qq/article/details/104786253/" target="_blank" rel="noopener">Centos中docker部署Hexo博客站点</a></p>
+</li>
+<li><p><strong>Reference :</strong> <a href="https://blog.csdn.net/sinat_37781304/article/details/82729029" target="_blank" rel="noopener">hexo史上最全搭建教程</a></p>
+</li>
+</ul>
+<hr>
+<h2 id="0x01-搭建-CentOS-amp-Docker"><a href="#0x01-搭建-CentOS-amp-Docker" class="headerlink" title="0x01 搭建 CentOS &amp; Docker"></a>0x01 搭建 CentOS &amp; Docker</h2><h3 id="0x011-安装-Docker"><a href="#0x011-安装-Docker" class="headerlink" title="0x011 安装 Docker"></a>0x011 安装 Docker</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装必要的系统工具</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="comment"># 添加软件源信息</span></span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 更新 yum 缓存</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"><span class="comment"># 安装 Docker-ce</span></span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line"><span class="comment"># 启动 Docker 后台服务</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"><span class="comment"># 测试运行 hello-world</span></span><br><span class="line">docker run hello-world</span><br><span class="line"><span class="comment"># 设置daemon.json 加快docker pull 速度</span></span><br><span class="line">vi /etc/docker/daemon.json :wq </span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"registry-mirrors"</span>: [<span class="string">"https://9cpn8tt6.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="0x012-安装-Docker-Compose"><a href="#0x012-安装-Docker-Compose" class="headerlink" title="0x012 安装 Docker-Compose"></a>0x012 安装 Docker-Compose</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 离线安装</span></span><br><span class="line"><span class="comment"># 到 https://github.com/docker/compose/releases 下载 </span></span><br><span class="line"><span class="comment"># 将 docker-compose-Linux-x86_64 上传到机器上 </span></span><br><span class="line">sudo mv docker-compose-Linux-x86_64 /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">docker-compose -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在线安装（github太慢了）</span></span><br><span class="line"> curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> docker-compose -v</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x02-搭建-CentOS容器"><a href="#0x02-搭建-CentOS容器" class="headerlink" title="0x02 搭建 CentOS容器"></a>0x02 搭建 CentOS容器</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 搭建 CentOS 容器</span></span><br><span class="line">docker pull centos:7</span><br><span class="line">docker run -itd --name blog -p 80:4000 centos:7</span><br><span class="line">docker <span class="built_in">exec</span> -it blog /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># CentOS 容器内操作</span></span><br><span class="line"><span class="comment"># 安装git node cd</span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/opt</span><br><span class="line">yum -y install git-core</span><br><span class="line">yum -y install wget</span><br><span class="line">wget https://npm.taobao.org/mirrors/node/v12.16.0/node-v12.16.0-linux-x64.tar.gz</span><br><span class="line">tar -zxvf node-v12.16.0-linux-x64.tar.gz</span><br><span class="line">rm -rf node-v12.16.0-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试node是否安装成功</span></span><br><span class="line">/opt/node-v12.16.0-linux-x64/bin/./node -v</span><br><span class="line">vi /etc/profile :wq</span><br><span class="line"><span class="comment"># 设置 nodejs 环境变量，在 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL 一行的上面添加如下内容</span></span><br><span class="line"><span class="built_in">export</span> NODE_HOME=/opt/node-v12.16.0-linux-x64</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$NODE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">vi .bashrc :wq</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 任意路径测试是否配置成功</span></span><br><span class="line">node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装淘宝镜像(非必须)</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-部署-Hexo"><a href="#0x03-部署-Hexo" class="headerlink" title="0x03 部署 Hexo"></a>0x03 部署 Hexo</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">  <span class="comment"># 1. 常规操作</span></span><br><span class="line">  <span class="variable">$pwd</span> </span><br><span class="line">  /opt</span><br><span class="line">  npm install -g hexo-cli  --registry=https://registry.npm.taobao.org</span><br><span class="line">  </span><br><span class="line">  <span class="variable">$pwd</span></span><br><span class="line">  /home</span><br><span class="line">  hexo init blog <span class="comment"># 需要挺久</span></span><br><span class="line">  <span class="built_in">cd</span> blog</span><br><span class="line">  npm install</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 2. 快速操作-hexokit </span></span><br><span class="line">  <span class="comment"># 由于GFW原因会很慢，网上找了一个脚本 </span></span><br><span class="line">  <span class="comment"># https://blog.nfz.moe/archives/hexokit-intro.html</span></span><br><span class="line">  <span class="comment"># 脚本地址：https://gitee.com/neoFelhz/hexokit/raw/master/install.sh</span></span><br><span class="line">  <span class="comment"># 根据install.sh 修改为test.sh</span></span><br><span class="line">  $ cat test.sh</span><br><span class="line">  npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">  npm install hexo-cli -g</span><br><span class="line">git <span class="built_in">clone</span> https://git.oschina.net/neoFelhz/hexokit.git</span><br><span class="line">  <span class="comment"># rm install.sh</span></span><br><span class="line">  <span class="built_in">cd</span> /home/hexokit</span><br><span class="line">  npm install</span><br><span class="line">  <span class="comment"># hexo version</span></span><br><span class="line">  <span class="built_in">cd</span> ..</span><br><span class="line">  mv hexokit blog</span><br><span class="line">  </span><br><span class="line">  <span class="comment">#执行脚本</span></span><br><span class="line">  sh test.sh</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># hexo文件夹内容</span></span><br><span class="line">  <span class="variable">$ls</span></span><br><span class="line">  _config.yml  db.json  node_modules  package-lock.json  package.json  public  scaffolds	<span class="built_in">source</span>	themes</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 生成静态页面</span></span><br><span class="line">  hexo clean</span><br><span class="line">  hexo g</span><br><span class="line">  hexo s</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 访问主页</span></span><br><span class="line">  localhost:4000</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x04-编辑-文章"><a href="#0x04-编辑-文章" class="headerlink" title="0x04 编辑 文章"></a>0x04 编辑 文章</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 目录 : /home/blog/source/_posts</span></span><br><span class="line">hexo new <span class="string">"paper"</span></span><br><span class="line">vi &lt;paper&gt;.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布</span></span><br><span class="line">hexo g -d</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x05-更改-主题"><a href="#0x05-更改-主题" class="headerlink" title="0x05  更改 主题"></a>0x05  更改 主题</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># https://hexo.io/themes/ 选主题</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/yelog/hexo-theme-3-hexo.git themes/3-hexo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置文件</span></span><br><span class="line">vi _config.yml </span><br><span class="line"><span class="comment"># theme: lanscape -&gt; theme:3-hexo</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布</span></span><br><span class="line">hexo g -d</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x06-实操-博客"><a href="#0x06-实操-博客" class="headerlink" title="0x06 实操 博客"></a>0x06 实操 博客</h2><ul>
+<li><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 环境：win10_vmware15_centos7.4</span></span><br><span class="line"><span class="comment"># 安装了 docker和 docker-compose</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 运行CentOS容器</span></span><br><span class="line">docker run -tdi --name hexo-blog -p 80:4000 -v /home/ss/hexo-blog/:/home/blog centos:7 /bin/bash</span><br><span class="line">docker <span class="built_in">exec</span> -it hexo-blog /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. CentOS 容器内操作</span></span><br><span class="line"><span class="comment"># 安装git node </span></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/opt</span><br><span class="line">yum -y install git-core</span><br><span class="line">yum -y install wget</span><br><span class="line">wget https://npm.taobao.org/mirrors/node/v12.16.0/node-v12.16.0-linux-x64.tar.gz</span><br><span class="line">tar -zxvf node-v12.16.0-linux-x64.tar.gz</span><br><span class="line">rm -rf node-v12.16.0-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试node是否安装成功</span></span><br><span class="line">/opt/node-v12.16.0-linux-x64/bin/./node -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决容器内中文乱码</span></span><br><span class="line">yum install kde-l10n-Chinese -y</span><br><span class="line">yum install glibc-common -y</span><br><span class="line">localedef -c -f UTF-8 -i zh_CN zh_CN.utf8</span><br><span class="line"></span><br><span class="line">vi /etc/profile :wq</span><br><span class="line"><span class="comment"># 设置 nodejs 环境变量，在 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL 一行的上面添加如下内容</span></span><br><span class="line"><span class="built_in">export</span> NODE_HOME=/opt/node-v12.16.0-linux-x64</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$NODE_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> LC_ALL=zh_CN.utf8</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 出现bash：hexo command not found 时候要加到bashrc</span></span><br><span class="line"><span class="built_in">cd</span> /root</span><br><span class="line">vi .bashrc :wq</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 安装 Hexo</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home</span><br><span class="line">git <span class="built_in">clone</span> https://git.oschina.net/neoFelhz/hexokit.git</span><br><span class="line"><span class="built_in">cd</span> hexokit</span><br><span class="line">cp -r * /home/blog </span><br><span class="line"><span class="built_in">cd</span> /home/blog</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">hexo g -d</span><br><span class="line">hexo s</span><br><span class="line"><span class="comment"># 访问 localhost:4000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 配置github-hexo</span></span><br><span class="line"></span><br><span class="line">vi _config.yml  :wq</span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/xiaoxiaoc111/xiaoxiaoc111.github.io.git</span><br><span class="line"></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 配置ssh</span></span><br><span class="line">git config --global user.name <span class="string">"xiaoxiaoc111"</span></span><br><span class="line">git config --global user.email <span class="string">"fzuxiaoxiaoc@gmail.com"</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"fzuxiaoxiaoc@gmail.com"</span></span><br><span class="line">/root/.ssh/id_rsa</span><br><span class="line"><span class="comment"># 将位于/root/.ssh/id_rsa的id_rsa.pub添加到自己的github账户里面</span></span><br><span class="line"><span class="comment"># 登录github-点击头像-settings-SSH and GPG keys-New SSH key  添加一个新的ssh key</span></span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 访问 github io</span></span><br><span class="line">https://xiaoxiaoc111.github.io/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. 绑定个人域名</span></span><br><span class="line">blog.littlec.tech</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>0x06_Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>0xFF_TombKeeper</title>
+    <url>/2020/04/06/0xFF_TombKeeper/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了 TombKeeper 的微博 &amp; 知乎问答。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="ReadMe"><a href="#ReadMe" class="headerlink" title="ReadMe"></a>ReadMe</h2><ul>
+<li><strong>Reference ：</strong> <a href="https://weibo.com/101174?topnav=1&amp;wvr=6&amp;topsug=1" target="_blank" rel="noopener">TK微博</a></li>
+</ul>
+<hr>
+<h2 id="0x00-关于网络安全学习的合辑："><a href="#0x00-关于网络安全学习的合辑：" class="headerlink" title="0x00 关于网络安全学习的合辑："></a>0x00 关于网络安全学习的合辑：</h2><ul>
+<li>关于网络安全学习的合辑：<ul>
+<li>答一位热爱网络安全的同学的来信：<a href="http://t.cn/Ai1xtcCU" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>信息安全走向漫谈：<a href="http://t.cn/Ai1xXtxp" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>安全研究者的个人成长：<a href="http://t.cn/RQ6oxDf" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>如何学习：<a href="http://t.cn/AiNXZljj" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>如何研究：<a href="http://t.cn/AiNSGXmj" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>如何成长：<a href="http://t.cn/Ai3WND3W" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>敲代码的如何转行挖掘漏洞：<a href="http://t.cn/Ai1xtcCy" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>程序员如何判断自己是否适合做安全研究：<a href="http://t.cn/Ai1xxWgm" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>网络安全初学者应该看什么书：<a href="http://t.cn/AiHMnwOo" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>信息安全方向就业要考哪些证书：<a href="http://t.cn/Ai1xI5ZW" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>信息安全专业有必要考研吗：<a href="http://t.cn/EMyWZ2R" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>学院派信息安全指的是什么：<a href="http://t.cn/Ai19wm8F" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>信息安全专业的发展会受到文凭的限制吗：<a href="http://t.cn/Ai1xI5ZO" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>为什么很多高中生都能比大学生强：<a href="http://t.cn/Ai9vbGWC" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>做黑产能挣很多钱吗：<a href="http://t.cn/A6vBCvu5" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>信息安全工程师有全栈一说吗：<a href="http://t.cn/Ai1xtcCL" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>网站越来越难渗透怎么办：<a href="http://t.cn/Ai39DC8A" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>做安全研究挖不到漏洞怎么办：<a href="http://t.cn/Rmqwjy9" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>学习网络安全时遇到瓶颈怎么办：<a href="http://t.cn/EzRt9Tn" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>高手不愿和我交流交流怎么办：<a href="http://t.cn/Ai19wm8D" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>有了量子计算信息安全还有用吗：<a href="http://t.cn/Ai1xI5ZY" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>有了量子通信信息安全还有用吗：<a href="http://t.cn/Ai1xI5ZK" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>有哪些 Linux 逆向相关的学习资料推荐：<a href="http://t.cn/Ai1xtcCG" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+<li>DEFCON 1 到 DEFCON 24 的所有资料：<a href="http://t.cn/Ai1i33Gb" target="_blank" rel="noopener"><em>O</em>tombkeeper</a>  </li>
+<li>如果在上面没找到答案，可以看看这个：<a href="http://t.cn/RED2DDg" target="_blank" rel="noopener"><em>O</em>tombkeeper</a> </li>
+</ul>
+</li>
+</ul>
+<h2 id="0x01-做安全研究挖不到漏洞怎么办-？"><a href="#0x01-做安全研究挖不到漏洞怎么办-？" class="headerlink" title="0x01 做安全研究挖不到漏洞怎么办 ？"></a>0x01 做安全研究挖不到漏洞怎么办 ？</h2><blockquote>
+<p> 做安全研究挖不到漏洞怎么办： 这两年经常有人问类似“做安全研究挖不到漏洞怎么办”这样的问题，这里统一答复一下。 早年没有信息安全专业，搞漏洞研究的全都是因为爱好这个，自己主动来搞的。不适合干这个，搞不出来的，自然也就还干本行去了。所以早年没有人抱怨为什么研究不出东西。 现在信息安全专业开设的越来越多，有些同学看别人搞漏洞研究，自己也想搞。搞不出来，就四处找人问为什么自己搞不出来，怎么才能搞出来。 首先，必须要先泼一瓢冷水：由于性格、能力等多方面原因，无论是不是学信息安全专业的，世界上大部分人都不适合做漏洞研究，就像大部分人都不适合做职业运动员一样。 你们琢磨一下漏洞是什么？漏洞是程序员犯的错误。那些著名大公司软件的漏洞是什么？是一些面试好多轮才能入职的名校毕业的程序员犯的错误。而且这些公司里还有很多面试好多轮才能入职的名校毕业的人在做安全。他们都没查出来，才能留下来让你去发现。 我曾给微软中国的 QA 做过培训，和他们连续接触了数天。这些人体现出来的平均水平肯定在国内安全行业（不特指漏洞研究）之上，其中有几个还相当出色。 所以，挖不到漏洞是正常的，挖到才不正常。信息安全工作有很多方向，学信息安全，不一定非要都做漏洞研究。 </p>
+</blockquote>
+<h2 id="0x02-学院派的信息安全指的什么？"><a href="#0x02-学院派的信息安全指的什么？" class="headerlink" title="0x02 学院派的信息安全指的什么？"></a>0x02 学院派的信息安全指的什么？</h2><blockquote>
+<ul>
+<li>2015-02-10 </li>
+<li>在各个安全技术的群里感觉已经没办法交流了。我研究的是信息安全的框架、顶层设计、整体的解决方案，平时也花不少时间跟进技术。但是遇到过多次，我说了自己的一些观点，就招来嘲讽，说我是学院派，满是鄙夷口吻。为什么会是这样的局面？理论指导实践，实践证明理论，如果是学院派指的是研究信息安全理论的人，那这样的局面显然不利于信息安全行业的发展。” 我们常把从事信息安全技术研究的人分为学院派和工业派，分别指更偏向于理论的研究者，和更偏向于实践的研究者。 学院派和工业派之间的界限并不特别清晰。有些学院派搞的东西也很实用，工业派也常研究学院派的理论。信息安全领域很多东西都是由学院派开创、工业派完善的。理论和实践都很重要，学院派和工业派都不是贬义词。 不过需要注意，理论和空论还是要区分的。理论可以指导实践，空论只能指导扯淡。所以，上面说的两派之外，还有裘千丈派、索天响派等，这些也常被人称作“学院派”，但实际上他们不是学院派。有点像我们称呼一个姑娘为“小姐”，但她可能不是小姐，是失足妇女。 至于在沟通中被人以鄙视的语气称呼为“学院派”，可能是你的观点有问题，也可能是对方无法理解你的观点，但和学院派本身没啥关系。</li>
+</ul>
+</blockquote>
+<h2 id="0x03-学习网络安全时遇到瓶颈了该怎么办？"><a href="#0x03-学习网络安全时遇到瓶颈了该怎么办？" class="headerlink" title="0x03 学习网络安全时遇到瓶颈了该怎么办？"></a>0x03 学习网络安全时遇到瓶颈了该怎么办？</h2><blockquote>
+<ul>
+<li>2016-10-16 </li>
+<li>Q ：基础的那些sql，xss，csrf那些基本的都会了，但是想更进一步，不知道该怎么办了，有点迷茫，然后我就开始学习python和php，但是，学了一个月，回想一下，发现现在连一个小的脚本都不会写，应聘公司想以实习的目的去学习（ps：中专毕业的渣渣），没有上大学是不是很难应聘公司啊，请大神指点我一下，谢谢” </li>
+<li>A : 从事任何方向的技术研究，不知道该干什么的时候，就问自己四个问题：<ul>
+<li>这个方向上最新进展是什么？ 都知道吗？</li>
+<li>这个方向上最著名的专家有哪些？他们的研究都看过吗？</li>
+<li>这个方向上最著名的技术社区有哪些？精华帖都看过一遍吗？</li>
+<li>这个方向上最重要的文章、工具有哪些？文章都看过吗？工具都分析过吗？ </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="0x04-觉得信安没有前景所以没有动力了怎么办？"><a href="#0x04-觉得信安没有前景所以没有动力了怎么办？" class="headerlink" title="0x04 觉得信安没有前景所以没有动力了怎么办？"></a>0x04 觉得信安没有前景所以没有动力了怎么办？</h2><blockquote>
+<ul>
+<li>2016-09-15 </li>
+<li>Q ：学了信息安全专业，但听了老师的话觉得信安没有前景所以没有动力了怎么办？</li>
+<li>A :  题主今年大一，学习信息安全专业。一开始拼劲满满，下定决心当一名学霸。但在第一节计算机导论课上，老师列举计算机类型时，提到了量子计算机和光子计算机，而且说如果这些计算机普及，就不需要网络安全员了。你们老师可能并不清楚量子计算机和光子计算机是什么、能干什么，但认为自己明白并向学生布道，而这可能是由于把看科技新闻作为学习新知识的主要方法而导致的。 </li>
+</ul>
+</blockquote>
+<h2 id="0x05-信息安全走向漫谈"><a href="#0x05-信息安全走向漫谈" class="headerlink" title="0x05 信息安全走向漫谈"></a>0x05 信息安全走向漫谈</h2><blockquote>
+<ul>
+<li>2006-08-19，B105技术沙龙</li>
+</ul>
+<p>村长<a href="http://0x557.org/" target="_blank" rel="noopener">airsupply </a>邀我来B105沙龙和大家闲扯。而我近来的工作是拉磨居多，接客其次，实在没有什么新货。村长说：不必讲技术，可以谈谈“信息安全的现状和未来”。我思前想后，觉得这个题目纲领性太强，我这点资历讲起来显然自不量力。还是改称“信息安全走向漫谈”显得比较低调。漫谈漫谈，就是漫天乱谈，谈错了不要紧。万一谈得对，就算蒙上了。</p>
+<p><strong>1、学什么技术不会过时？</strong></p>
+<p>常有人跟我发牢骚，说搞技术太累，总要学新东西。还总问，安全技术未来的方向是什么，学什么技术不会过时，五年十年之后还能混饭？</p>
+<p>每到这时我都很尴尬，不知道应该说什么。</p>
+<p>有些朋友知道，我读了五年医科大学。很多人认为医生是一个稳定的职业，医学是保值的知识，学完了就可以躺在上面吃一辈子。其实恰恰相反。稍大一点的医院都有自己的图书馆。年轻医生就不用说了，很多六十多岁的老医生上门诊，抽屉里还放着一本专业书，有病人的时候就给人看病，没病人就拉开抽屉看书。以前儿科的老主任对我说过：干医生这一行，半个月不去图书馆读文献，就落后了。毛主席说“三天不学习，赶不上刘少奇。”医生这一行就是这样。</p>
+<p>我们家乡有句俗话，叫“看别人吃豆腐觉得牙齿快”。很多技术人员都觉得销售这个活儿好干，工作就是吃喝玩乐混关系，挣钱又多，还不费脑子。我只能说“那你去试试看吧”。先甭说销售绝对不是不费脑子的活儿，也绝对不是光靠“吃喝玩乐混关系”就行的。就算是，这“吃喝玩乐混关系”七个字岂是简单的？谁刚从台上下来满怀落寞但还有一些重要关系？谁虽然只是个普通教授但是诸多弟子都身居要职？谁手里有指标但自己不能完全做主？谁行政级别高但没有实权？新上来一把手是爱人民币爱高尔夫爱燕鲍翅还是爱制服捆绑？京城里何处灯最红何处酒最绿？——这些信息都是动态的，变化的，而且靠订阅邮件列表和看BBS是得不到的。不收集，不学习，咋整？</p>
+<p>公交车站牌上贴的那些招聘职位，没有学历要求，只要“形象好，气质佳，思想开放”就可以“日薪1500以上”，这个钱挣起来算是容易又轻松了吧？其实即便从事这种地球上最古老的职业，学和不学那也是大大不同。苏小小、李师师的时代，要上头牌都得会琴棋书画，填词唱曲。到了十里洋场上海滩，根据才情高低也要分出“书寓”、“长三”、“幺二”来，啥都不会就只能混“野鸡堂子”。现在没那么多讲究了，不过“一剑穿心毒龙钻，冰火红绳空中飞”这些基本业务总还得学，要不然也还是“野鸡堂子”、Street-Walker的命。</p>
+<p>那究竟有没有什么是学了不会过时的呢？学会学习的方法，学会从学习中获得快乐，这是永不过时的。如果享受不了汲取知识的快乐，那就不适合做任何需要脑力的工作。</p>
+<p><strong>2、信息安全的未来如何？</strong></p>
+<p>最近一两年，大家感觉信息安全形势比前两年要好些了，不再像2002、2003年的时候，漏洞满天飞，蠕虫遍地爬。于是有人开始担心：漏洞少了的确有利于信息安全，但这样下去，最终会不会导致我们失业？</p>
+<p>对此我是这样看的：信息安全技术的发展将来一定会有技术方向上的变化，但不会有前途上的问题。</p>
+<p>电影《笑傲江湖》中任我行说：“有人就有江湖 ”。从有马帮的那一天起，就有马贼；从有海船的那一天起，就有海盗。有盗贼怎么办？理论上靠官府，实际上靠自己。自己搞不定怎么办？花钱找镖局。几千年来，什么时候这个格局改变过？过去镖局保的是金银，今天我们保的，归根结底也还是金银。从这个意义上讲，我们这个行业其实是镖局发展进入信息时代后，出现前面说的“技术方向上的变化”，而化生出来的。</p>
+<p>所以，只要人类社会还存在信息交换行为，只要这些信息交换涉及到利益，就会有人试图改变这些利益的分配规则，就会有对信息安全的需求。百川归大海，这是一个根本法则，不管中间怎么九曲十八弯，最终，这个根本法则是不会有什么变化的。</p>
+<p>大家感觉信息安全形势比前两年要好，可能一个主要原因就是看到软硬件厂商对安全越来越重视，安全措施越来越多。而看起来，比较严重的安全漏洞似乎有减少的趋势。互联网上几乎每台机器都有防火墙保护。新的Fedora Core默认开启了Linux的很多安全特性，而且看起来以后会一直这样下去。微软将要发布的Vista也似乎是一个强健无比的系统。这一切仿佛都在暗示信息安全会成为一个历史阶段性的事物，随着安全形势的进一步好转，这个行业也会逐渐淡去。</p>
+<p>下面我们具体来谈谈这些问题。</p>
+<p>Vista是个纸老虎</p>
+<p>很多搞Windows安全的人最近都着实被微软的Vista给吓着了，觉得以后Windows就安全了，没什么可搞了。微软号称这个系统比前代大大增强了安全性。不过大家别忘了，微软推出Windows 2000的时候是这么宣传的，推出Windows XP的时候是这么宣传的，推出Windows 2003的时候也是这么宣传的。</p>
+<p>当然，实事求是地说，从我们最近一段时间对Vista Beta版的研究来看，这个新系统的确采取了很多新的安全特性，大大增加了传统漏洞的利用难度；新的开发过程和开发工具也的确降低了漏洞发生的几率，比起之前的产品在安全上可以说有一个大飞跃。</p>
+<p>但关键问题是：人们真的会接受这样一个用大量确认窗口和限制措施来虐待用户的操作系统么？更别提可怕的资源占用和乌龟般的速度了。至少我是绝对不会用这个东西的。估计在Vista正式上市后，各种Windows优化软件肯定会立即提供关闭这些安全特性的功能。</p>
+<p>信息安全，信息为肉，安全为骨。肉无骨则不立，骨无肉则不活。蚯蚓之类，只有肉没有骨，尚可以慢慢蠕动，可以不太精彩地活下去；但是没有肉，光剩骨头，什么动物也活不了。安全措施对用户的扰动越小，就越容易被接受。时刻发挥作用，却几乎感觉不到它的存在，这就是安全工作的至善境界，也是最难达到的目标。要不然为什么杜雷斯的超薄型卖得贵还那么受欢迎。</p>
+<p>在我看来，Vista就是个至少一厘米厚的杜雷斯。</p>
+<p>任何企业的目标都是挣钱，只有当维护用户安全和挣钱这个目标恰好吻合时，它就会设法增强用户安全，如果维护用户安全影响了挣钱这个目标，它一定会考虑重新调整两边的砝码。</p>
+<p>今天我在这里关起门来做个大胆的预言：Vista终将成为一个类似Windows ME那样没什么人愿意用的失败产品。微软甚至可能会在Vista后续的Service Pack或者下一代操作系统中取消或者减弱一些影响用户体验的强制安全特性。</p>
+<p>另外，这个一厘米厚的杜雷斯是否真的就比0.03mm的超薄型安全333.33倍？值得怀疑。Windows 95只有1500万行代码，Windows 98有1800万行代码，Windows XP 有3500万行。Vista 则有5000万行，比XP多出了40%。新代码带来新功能，同样，新代码也必然会引入新漏洞。</p>
+<p>毛主席说过，“一切反动派都是纸老虎。看起来，反动派的样子是可怕的，但是实际上并没有什么了不起的力量。从长远的观点看问题，真正强大的力量不是属于反动派，而是属于人民。”在我看来，Vista也很可能是个纸老虎。假以时日，纸老虎的软裆必然会被一一发现。</p>
+<p>退一步讲，即便Vista、Fedora Core等为代表的新一拨操作系统真的是一个漏洞都没有了，从整体上看，信息安全态势仍然不乐观。</p>
+<p>未来，各行各业各领域都将数字化，生活的方方面面都离不开信息技术。各种不同的信息技术交织在一起，构成巨大的宏信息世界，比我们现在的互联网大得多，复杂得多。安全问题也会随之复杂和严重。现在个人电脑上那一点点漏洞到那时候看就很渺小了。想想看，以前是你的电脑被入侵，以后你的电饭锅被入侵；过去是让你上网慢，以后让你吃夹生饭。</p>
+<p>既然这样，为什么我们还要用信息技术呢？这一页PPT的标题叫做“信息技术是个狐狸精”。狐狸精，大家知道是什么吧，就是你知道她可能会害你，但身不由己。为什么呢？还是因为好，足够好到让你愿意冒这个险。</p>
+<p>上高中时候，学摄影，用胶片，大夏天也要自己闷在暗房里冲洗。现在都是数码相机，随拍随看，多么方便。上大学的时候，大家都用“Walk-Man”，阔气一点的听随身CD、MD。现在一个火柴盒大小的MP3就都搞定了，价钱也便宜。</p>
+<p>我在网上买过一个二手CF卡。拿回来，用数据恢复软件一看，里面有几张刑事案件的现场照片，血迹斑斑。还拍了受害人。这个卡不知道是哪个派出所淘汰下来的。如果追究起来，肯定要有人受到不好的影响。这种事情，在用胶片的时代不会有。但今天，新问题就出现了。</p>
+<p>这些是什么啊？是狐狸精。狐狸精太好了，你很难舍弃。但糖衣好吃，炮弹难挡。信息技术发展的这么快，配套的安全很难跟得上。大家想想，汽车发明多少年后才有的安全带、安全气囊？有了安全带、安全气囊，每年还要车祸死多少人？每年车祸死这么多人，大家是不是还一样开车？这就是狐狸精，死都离不开。</p>
+<p>今年世界杯，就有人提出，要在每个球员身上装RFID，对球员进行实时精确定位，用来作为裁判的辅助依据。虽然最后没有这么干，但这一天迟早会到来（注：后来才知道，马拉松比赛已经开始用RFID来跟踪选手的位置）。</p>
+<p>（此处省略几页对RFID安全问题科普讲解的PPT内容）</p>
+<p>刚才讲的比较科幻。落到现实中来，你我能看到的未来若干年中，可能的新热点有：Wi-Fi、蓝牙、WiMax、UWB等无线通信技术的安全问题，RFID的安全问题，消费类个人电子产品的安全问题，数字家电的安全问题，等等。</p>
+<p>人类社会用信息技术越多，意味着越多的的财富和荣誉将由数字介质承载，越多的风险将是信息安全风险，信息安全技术就越重要，这个职业就越重要。</p>
+<p>现在国外有种职业叫保安顾问，保障你现实世界的安全。有为企业服务的，也有为个人服务的。我瞎猜一下：在未来，可能要有类似这样的信息安全顾问。而且可能比较普及，就像现在国外的私人医生、私人律师一样。 退一万步说：信息安全企业也许会消失，但信息安全这个职业永远不会消失——只要人类还使用信息技术。</p>
+<p>谢谢大家。</p>
+</blockquote>
+<h2 id="0x06-信息安全专业有必要考研吗"><a href="#0x06-信息安全专业有必要考研吗" class="headerlink" title="0x06 信息安全专业有必要考研吗"></a>0x06 信息安全专业有必要考研吗</h2><blockquote>
+<ul>
+<li>2014-11-22 </li>
+<li>信息安全专业有必要考研吗： 如果确实对安全技术很感兴趣，自己读了很多资料，写了很多代码，做了很多研究，那未必要考研。 如果你不属于前一种人，又想干这行，那跟着导师做几年项目还是有好处的。</li>
+</ul>
+</blockquote>
+<h2 id="0x07-信息安全专业的发展会受到文凭的限制吗"><a href="#0x07-信息安全专业的发展会受到文凭的限制吗" class="headerlink" title="0x07 信息安全专业的发展会受到文凭的限制吗"></a>0x07 信息安全专业的发展会受到文凭的限制吗</h2><blockquote>
+<ul>
+<li>2017-04-06 </li>
+<li>我们部门有名校博士，也有本科肆业的。企业招人的目标肯定是能力而不是文凭。有些大一大二的同学已经比硕士毕业生的平均水平高出很多。至少我个人会宁可要这些大一大二的同学，而不是招一个文凭漂亮但做不了事的人。 文凭是对能力的一种背书。就像我们只看标签无需品尝，就可以认为“勃艮第葡萄酒”很大概率上会比“门头沟葡萄酒”要强。然而，虽然文凭是获得入场资格的一种主流方式，但不是唯一方式。而且信息安全行业远比葡萄酒行业有更多更简单的方式让自己的能力为人所知。全真七子是一种发展路线，杨过也是一种发展路线。具体路怎么走，还得你自己根据自己的具体情况来判断。</li>
+</ul>
+</blockquote>
+<h2 id="0x08-信息安全工程师有全栈一说吗"><a href="#0x08-信息安全工程师有全栈一说吗" class="headerlink" title="0x08 信息安全工程师有全栈一说吗?"></a>0x08 信息安全工程师有全栈一说吗?</h2><blockquote>
+<ul>
+<li>2016-11-24</li>
+<li>信息安全工程师有全栈一说吗： 『随着互联网的发展，应用层的花样越来越多，甚至连编程语言都层出不穷了。这样的时代背景下，一个合格的安全工程师，应该具备哪些技术栈呢？真的有人熟知渗透测试，还能对软件/APP逆向分析，而且能够挖掘内核级别的0Day吗？</li>
+<li>题主7年左右的安全学习背景，目前很困惑以后的发展方向。就我了解到的，渗透测试需要应对的环境太多了，能做好一个“脚本小子”都已实属不易。何况逆向分析和系统内核，更是需要强大的编程功底和计算机理论基础，再加上最近几年火热的工控安全和人工智能等等，到底该怎么规划安全路呢？』 </li>
+<li>信息安全工程师没有全栈一说，因为信息安全工程师默认就需要是全栈的。每个人都在往全栈的方向上走，只是走的阶段不同，最终能到达的地方不同而已。 比如你去做安全服务工程师，而“安全服务”这四个字背后可能是任何操作系统，任何网络环境，任何异常问题。比如你去做漏洞研究，而“漏洞研究”这四个字背后可能是各种不同协议，不同格式，不同系统，不同指令集。所以这不是学一点东西就能吃一辈子的行业。</li>
+<li>具体到提问中所说的“真的有人熟知渗透测试，还能对软件/APP逆向分析，而且能够挖掘内核级别的0Day吗”，只是这三样的话，能做的人还挺多的。  </li>
+</ul>
+</blockquote>
+<h2 id="0x09-信息安全专业有必要考研吗"><a href="#0x09-信息安全专业有必要考研吗" class="headerlink" title="0x09 信息安全专业有必要考研吗?"></a>0x09 信息安全专业有必要考研吗?</h2><blockquote>
+<ul>
+<li>2017-07-07 </li>
+<li>这个问题问得很笼统，如果也笼统回答的话，只能说：信息安全专业学生如果以后想从事专业对口的工作，需要信息安全专业技能，很多证书都可以提高就业机会。</li>
+<li>具体举例子来说的话——比如在国内乙方就业，CISP 是有用的。因为安全企业如果要申请信息安全服务资质，就需要若干名有 CISP 证书的员工。而很多甲方招标会要求乙方企业有相关资质。 </li>
+<li>所以顺着这个思路，可以去查查各安全项目的招标公告，看看对企业要求了什么，再查查企业如果要具备这些要求，需要有什么证书的员工。那么这些证书就是显著有利于提高就业机会的。 </li>
+</ul>
+</blockquote>
+<h2 id="0x0A-网站越来越难渗透怎么办"><a href="#0x0A-网站越来越难渗透怎么办" class="headerlink" title="0x0A 网站越来越难渗透怎么办?"></a>0x0A 网站越来越难渗透怎么办?</h2><blockquote>
+<ul>
+<li>2019-10-20 </li>
+<li>【现在网站越来越难渗透了，渗透测试这个方向还有前途吗？】</li>
+<li>『大家有没有发现，现在网站防御越来越高，漏洞也越来越少，安全在进步，网站也难渗透了，一些老牌工具很难扫出注入点了，如果弄不到后台其他的也做不了。现在的工具都是2010年前的了，现在教程也不多，以前的教程内容已经越来越不适合现在的网络了。现在也没有网站能给新手练手了。』</li>
+<li>为什么用网上下载的工具很难扫描出安全问题了？因为你能下载别人也能下载。企业的安全部门里但凡只要有一个会用这些工具的人，就能自己把这些问题找出来，剩不到你手上。 十年前，很多企业的安全做的还很差，甚至没有网络安全部门，所以下载个工具扫一扫还能发现不少问题。现在一方面是企业自身安全能力提高了，另一方面网站开发者的安全能力也提高了。</li>
+<li>所以如果你只会用十年前的工具扫一扫，在今天自然会觉得很吃力。 然而，二十年前，随便找个工具扫一扫还可以发现很多远程管理弱口令、远程溢出漏洞。那么二十年前那些搞渗透测试的，在发现这些扫出来直接就能拿 root shell 的漏洞逐渐消失后是不是也很绝望？不是的。他们开始研究注入，研究 XSS，研究 CSRF，研究反序列化。所以他们才写出了你现在从网上下载的那些工具。 二进制安全也一样。二十年前的漏洞挖掘和利用都无比简单。</li>
+<li>二十年来，漏洞越来越难发现，越来越难利用。但二进制安全这个技术方向消失了吗？不但没有，而且发展越来越好。 对出身于普通家庭的人来说，工作有难度有门槛是好事。如果一个工作不难，那通常也不挣钱。如果又不难又还能挣钱，那人家为什么要让你来做的呢？找自己的堂侄表弟小舅子不好吗？ </li>
+</ul>
+</blockquote>
+<h2 id="0x0B-网络安全初学者应该看什么书"><a href="#0x0B-网络安全初学者应该看什么书" class="headerlink" title="0x0B 网络安全初学者应该看什么书?"></a>0x0B 网络安全初学者应该看什么书?</h2><blockquote>
+<p>前阵子遇到一个对网络安全感兴趣的中学生，让我推荐一本书。我告诉他： 随便找一个书店，在网络安全分类下面随便找一本书，然后从第一页开始学。如果觉得学不下去，那可能是书有问题，就换一本。如果换一本还是学不下去，就再换一本。如果换了三四本都还学不下去，可能就不是书的问题。如果能学得下去，等这本书学完，接下来该学什么，你会有自己的想法，不需要再问别人了。 </p>
+</blockquote>
+<h2 id="0x0C-如何学习？"><a href="#0x0C-如何学习？" class="headerlink" title="0x0C 如何学习？"></a>0x0C 如何学习？</h2><blockquote>
+<ul>
+<li>学校教育的方式是：由浅入深，先理论再实践，多门基础课一起平面推进。这种方式的好处是学得扎实，适合批量培养人。缺点是出活儿慢，没有利用人的内驱力。 师傅带徒弟或者自学的情况下就不一定要按批量教学的方式来。 我个人的经验是不管会不会，先动手搞起来。而且不搞太入门的，要难度中等，这样才有成就感，能形成正反馈，调动内驱力。过程中会遇到很多不懂的东西，没关系，遇到什么就去学什么。这个阶段不求多求全，以把手头的东西搞起来为目标。搞成了再设定一个更难的新目标。新老目标之间要有继承性。最后等高难度目标也能搞定了，再转过头系统性地去看看相关技术资料，加固一下地基。 </li>
+</ul>
+</blockquote>
+<h2 id="0x0D-如何成长？"><a href="#0x0D-如何成长？" class="headerlink" title="0x0D 如何成长？"></a>0x0D 如何成长？</h2><blockquote>
+<ul>
+<li>十几年前流行过一篇文章叫《把信带给加西亚》。前些年又流行过批判这篇文章。研究工作大多和那位送信者面临的情况差不多：有一封信交给你，让你送给加西亚。加西亚在哪儿？没人知道。你得自己找，把信送到。 </li>
+<li>做研究工作，第一步是资料查找。这是从事研究探索最基础的能力，非常重要。而且也没有想象的那么简单，并不是每次把想问的问题输入搜索引擎都能得到答案。所以没找到答案可能不是没有答案。具体用哪些关键词、怎么组合这些词、怎么根据第一步搜索结果中的线索再提取关键词、怎么判断搜索结果有效性，等等，这些都需要反复实践和归纳思考。 通过资料查找，就可以知道是否有人做过类似工作，是否有可直接参考的资料。有时候你会发现全世界也没人做过类似工作。这时就需要针对目标，进行路径分析，看看有哪些路可能通往目标，然后再针对这些分解出的路径再进行资料查找。 这种目标分解有时候会不止一层。也就是说那些分解出来的路径也可能没有资料。那就需要针对路径再作路径分解。然后遍历这些路径。</li>
+<li>从历史经验看，天分高、脑子快、手速快、对技术路径有敏锐直觉的人，当然能干得快一些。而一般人只要愿意坚持遍历路径，能扛得住长期得不到正反馈，大部分也能干出成绩。就是会痛苦一些。别人乐在其中，你苦在其中。不怕苦的话也行。 </li>
+</ul>
+</blockquote>
+<h2 id="0x0E-有哪些-Linux-逆向相关的学习资料推荐？"><a href="#0x0E-有哪些-Linux-逆向相关的学习资料推荐？" class="headerlink" title="0x0E 有哪些 Linux 逆向相关的学习资料推荐？"></a>0x0E 有哪些 Linux 逆向相关的学习资料推荐？</h2><blockquote>
+<ul>
+<li><a href="https://seedsecuritylabs.org" target="_blank" rel="noopener">SEEDLabs</a>是雪城大学杜文亮教授创立的，十几年来得到了全球上百所大学的认可。建议每个认为找不到合适学习资料的人都看看，之后至少可以对自己到底是不是真想学有更接近于真实的认识。 </li>
+</ul>
+</blockquote>
+<h2 id="0x0F-程序员如何判断自己是否适合做安全研究"><a href="#0x0F-程序员如何判断自己是否适合做安全研究" class="headerlink" title="0x0F 程序员如何判断自己是否适合做安全研究"></a>0x0F 程序员如何判断自己是否适合做安全研究</h2><blockquote>
+<p>有人跟我说以前是程序员，问能否转干安全研究。我问他有没有自己研究过什么，他说还没有，但一直很感兴趣。然后我问他感兴趣了多少年，他就沉默了。当然，这至少说明他脑子很快，迅速知道我想表达什么：天天对着电脑，真感兴趣怎么可能从来没研究过——你跟林志玲睡一个床能好几年一直盖棉被纯聊天？ </p>
+</blockquote>
+<h2 id="0x10-答一位热爱网络安全的同学的来信"><a href="#0x10-答一位热爱网络安全的同学的来信" class="headerlink" title="0x10 答一位热爱网络安全的同学的来信"></a>0x10 答一位热爱网络安全的同学的来信</h2><blockquote>
+<ul>
+<li>您好！我是一个对网络安全很感兴趣的大学生，我叫*，现在和几个朋友一起学习网络安全技术。希望大四时可以到您的团队学习，我们想知道玄武的实习生招聘要求有那些？我们会在在两年时间里不断学习，并且向这些目标迈进。谢谢对玄武实验室的关注和对我的信任。实验室对实习同学的要求，其实主要就两点：1、对信息安全有比较整体的认识；2、至少钻研过一两项工业界的技术，有深入的了解和一定的成果。读了来信，我感觉你是一个勤奋好学的人，这很难得。大学时代是最适合学习的时候——这听起来有点像废话，但在这段时间里，你有很多时间，而没有生存压力，你的记忆力处于一生中的巅峰状态，你即使一夜不睡也可以很快恢复精力。毕业后可能再也不会有同时具备这些条件的时间了。有了勤奋，接下来主要是在什么方向上勤奋的问题。技术可以分为学术界和工业界，这两者都有意义，互有交叉，但其实区别也很大。企业需要的技术主要是工业界的技术，而在学校的环境里，不少人学术上不错，但对工业界的方向和需求了解比较少。前阵子有位高校的青年教师给我写信，谈了他做的研究。我发现他的技术很好，但做过的东西离工业界比较远。北美华人安全学术界的宋晓东（Dawn Song）教授、蒋旭宪（XuxianJiang）教授都是把学术和应用结合的比较好的代表。你们可以读一读他们的研究，体会一下。还有一个比较好的方法是阅读工业界安全会议的资料。从这些资料中也许学不到什么技术细节，但可以看看大家在做些什么，哪些自己比较感兴趣，然后选一两个方向，寻找相关资料深入学习。 </li>
+</ul>
+</blockquote>
+<h2 id="0x11-量子安全与信息安全的关系"><a href="#0x11-量子安全与信息安全的关系" class="headerlink" title="0x11 量子安全与信息安全的关系"></a>0x11 量子安全与信息安全的关系</h2><blockquote>
+<ul>
+<li>2016-08-24 </li>
+<li>墨子号等组成量子通讯网络，保证绝对的信息安全，那我们还要学习信息安全，密码学和可信计算之类的专业么？ </li>
+<li>量子通信（无论是量子密钥分发，还是严格意义上的量子通信）的目标是对抗窃听信道的攻击，尤其是对抗窃听光缆。 漏洞攻击、木马病毒、钓鱼欺诈……等等等等绝大多数一般人能遇上的信息安全问题和量子通信要解决的问题都没什么关系，也不是量子通信能解决的。</li>
+<li>假使你现在正在被人用漏洞攻击，刚进行到50%，有一个仙女挥动魔法棒，瞬间在全球普及了量子通信，那接下来的50%也会照常进行，无论你还是攻击者都不会感觉到任何不同。</li>
+</ul>
+</blockquote>
+<h2 id="0x12-敲代码的，如何转行挖掘漏洞？"><a href="#0x12-敲代码的，如何转行挖掘漏洞？" class="headerlink" title="0x12 敲代码的，如何转行挖掘漏洞？"></a>0x12 敲代码的，如何转行挖掘漏洞？</h2><blockquote>
+<ul>
+<li>2014-08-01  </li>
+<li>本人写了五六年Linux C，应用层业务为主，技术含量不算太高；C语言比较熟练，C++仅做过Win下MFC的简单项目；Linux kernel大致了解，写过简单的驱动；对于理论、算法之类的比较薄弱。是否可转行Linux或Win下漏洞挖掘？还需要补充点什么知识？多谢前辈们的指点。</li>
+<li>给你个建议：别想那么多，先干起来再说。 我找到第一个漏洞的时候，还在医院实习，只会写几行批处理。为了写 PoC 需要学编程语言，看电脑报介绍过 Perl，就去买了本《Perl 编程 24 学时教程》。后来为了写更好的 Exploit 学了 C 语言。再后来，为了各种研究读各种 RFC、调各种程序、读各种代码、试各种工具，等等。干这行，你永远不知道未来需要会什么。所以什么都可以不会，但不能学不会。 </li>
+</ul>
+</blockquote>
+<h2 id="0x13-高层次的人往往不愿意与低层次的人交流，那么低层次的人怎样进步？"><a href="#0x13-高层次的人往往不愿意与低层次的人交流，那么低层次的人怎样进步？" class="headerlink" title="0x13 高层次的人往往不愿意与低层次的人交流，那么低层次的人怎样进步？"></a>0x13 高层次的人往往不愿意与低层次的人交流，那么低层次的人怎样进步？</h2><blockquote>
+<ul>
+<li>高层次的人往往不愿意与低层次的人交流，那么低层次的人怎样进步？</li>
+<li>姚期智说：<ul>
+<li>这件事还是由你自己定夺，你说你证明了黎曼猜想就证明了黎曼猜想，你说你没有证明黎曼猜想就没有证明了黎曼猜想。</li>
+</ul>
+</li>
+<li>梦参老和尚说:<ul>
+<li>我走的地点多，有的人曾经跟我说：“能像弘一法师、慈舟法师、虚云老和尚、倓虚老法师那些大善知识，在哪里有？老法师你给我介绍一个，我去跟他学习。我说：“就是弘一法师在，你这个样子，他理都不理你。”</li>
+</ul>
+</li>
+<li>弘一法师说：<ul>
+<li>不是那么容易亲近的。他寮房的门永远是关着的，你想跟他说几句话，他没有时间跟你说。</li>
+</ul>
+</li>
+<li>慈舟法师说：<ul>
+<li>整天披着衣，讲完课，他就围着佛堂转：阿弥陀佛！阿弥陀佛！阿弥陀佛！</li>
+</ul>
+</li>
+<li>倓虚老法师说：<ul>
+<li>他的事务多，接触的政府官吏多。我们这里有几位道友，曾经跟着他到过华南，如果你们想跟他多亲近，多说几句话，他没有那个时间，并不是他不慈悲。</li>
+</ul>
+</li>
+<li>虚云老和尚说：<ul>
+<li>他在禅堂讲开示，就是你亲近他的时候。不过一个月他才讲两次，你可以到得了他身边吗？即使他真的在你身边，你能得到他的智能吗？</li>
+</ul>
+</li>
+<li>歌德说：<ul>
+<li>读一本好书，就是和高尚的人谈话。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="0x33-如果在上面没找到答案，可以看看这个"><a href="#0x33-如果在上面没找到答案，可以看看这个" class="headerlink" title="0x33 如果在上面没找到答案，可以看看这个"></a>0x33 如果在上面没找到答案，可以看看这个</h2><blockquote>
+<p><strong>有很多问题的答案其实是“你的智力不适合干这个”，但又不能直接这么说，必须绕很大一个弯子，但由于毕竟“你的智力不适合干这个”，所以绕个弯子对方就看不懂这层意思了</strong> </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>0xFF_TombKeeper</category>
+      </categories>
+      <tags>
+        <tag>Security</tag>
+      </tags>
+  </entry>
+</search>
