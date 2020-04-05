@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Docker深入浅出学习笔记">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0x05_Docker 深入浅出">
+<meta property="og:url" content="http://yoursite.com/2020/04/05/0x05_深入浅出Docker/index.html">
+<meta property="og:site_name" content="lb&#39;s Notes">
+<meta property="og:description" content="Docker深入浅出学习笔记">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-05T09:31:15.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="0x05_Docker 深入浅出">
+<meta name="twitter:description" content="Docker深入浅出学习笔记">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/05/0x05_深入浅出Docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>0x05_Docker 深入浅出 | lb's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lb's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/05/0x05_深入浅出Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="littlec">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lb's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          0x05_Docker 深入浅出
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-05 12:17:45 / 修改时间：09:31:15" itemprop="dateCreated datePublished" datetime="2020-04-05T12:17:45+00:00">2020-04-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/0x05-Docker/" itemprop="url" rel="index"><span itemprop="name">0x05_Docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Docker深入浅出学习笔记</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="ReadMe"><a href="#ReadMe" class="headerlink" title="ReadMe"></a>ReadMe</h2><ul>
+<li><strong>Reference ：</strong> 深入浅出 Docker</li>
+</ul>
+<hr>
+<h2 id="0x00-Docker-概念"><a href="#0x00-Docker-概念" class="headerlink" title="0x00 Docker 概念"></a>0x00 Docker 概念</h2><ul>
+<li><blockquote>
+<ul>
+<li><p>vm docker 虚拟机 容器 k8s hypervisor是什么？</p>
+<ul>
+<li>物理主机-&gt; 虚拟机（vm） -&gt;容器（docker）<br>vm 和docker 的 优缺点?</li>
+<li>vm 启动慢，可移植性差，专用系统<br>k8s是什么?</li>
+<li>k8s是容器编排（google开放）k8s 是docker之上的平台，采用docker实现底层容器相关操作 </li>
+</ul>
+</li>
+<li><ul>
+<li>内核命名空间</li>
+<li>控制组联合文件系统</li>
+<li>kubernetes 是在docker之上的平台 -&gt; the kubernets book</li>
+<li>docker 引擎 ：企业版 和社区版 EE&amp;CE<ul>
+<li><a href="https://docs.docker.com/engine/release-notes/" target="_blank" rel="noopener">https://docs.docker.com/engine/release-notes/</a></li>
+<li><a href="https://github.com/moby/moby" target="_blank" rel="noopener">https://github.com/moby/moby</a></li>
+</ul>
+</li>
+<li>开放容器计划OCI</li>
+<li>play with docker PWD</li>
+<li>linux端 client-daemon交互是通过本地IPC/UNIX socket - /var/run/docker.sock </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="0x01-Docker-安装"><a href="#0x01-Docker-安装" class="headerlink" title="0x01 Docker 安装"></a>0x01 Docker 安装</h2><ul>
+<li><blockquote>
+<p><strong>vm docker 虚拟机 容器 k8s hypervisor是什么？</strong></p>
+<ul>
+<li>物理主机-&gt; 虚拟机（vm） -&gt;容器（docker）</li>
+</ul>
+<p><strong>vm 和docker 的 优缺点?</strong></p>
+<ul>
+<li>vm 启动慢，可移植性差，专用系统</li>
+</ul>
+<p><strong>k8s是什么?</strong></p>
+<ul>
+<li>k8s是容器编排（google开放）k8s 是docker之上的平台，采用docker实现底层容器相关操作 <ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&gt;     <span class="comment"># 安装必要的系统工具</span></span><br><span class="line">&gt;     sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">&gt;     </span><br><span class="line">&gt;     <span class="comment"># 添加软件源信息</span></span><br><span class="line">&gt;     sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">&gt;     </span><br><span class="line">&gt;     <span class="comment"># 更新 yum 缓存</span></span><br><span class="line">&gt;     sudo yum makecache fast</span><br><span class="line">&gt;     </span><br><span class="line">&gt;     <span class="comment"># 安装 Docker-ce</span></span><br><span class="line">&gt;     sudo yum -y install docker-ce</span><br><span class="line">&gt;     </span><br><span class="line">&gt;     <span class="comment"># 启动 Docker 后台服务</span></span><br><span class="line">&gt;     sudo systemctl start docker</span><br><span class="line">&gt;     sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">&gt;     </span><br><span class="line">&gt;     <span class="comment"># 测试运行 hello-world</span></span><br><span class="line">&gt;     docker run hello-world</span><br><span class="line">&gt;     </span><br><span class="line">&gt;     <span class="comment"># 设置daemon.json 加快docker pull 速度</span></span><br><span class="line">&gt;     vi /etc/docker/daemon.json :wq </span><br><span class="line">&gt;     &#123;</span><br><span class="line">&gt;         <span class="string">"registry-mirrors"</span>: [<span class="string">"https://9cpn8tt6.mirror.aliyuncs.com"</span>]</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     systemctl daemon-reload</span><br><span class="line">&gt;     systemctl restart docker</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><blockquote>
+<ul>
+<li>内核命名空间</li>
+<li>控制组联合文件系统</li>
+<li>kubernetes 是在docker之上的平台 -&gt; the kubernets book</li>
+<li>docker 引擎 ：企业版 和社区版 EE&amp;CE<ul>
+<li><a href="https://docs.docker.com/engine/release-notes/" target="_blank" rel="noopener">https://docs.docker.com/engine/release-notes/</a></li>
+<li><a href="https://github.com/moby/moby" target="_blank" rel="noopener">https://github.com/moby/moby</a></li>
+</ul>
+</li>
+<li>开放容器计划OCI</li>
+<li>play with docker PWD</li>
+<li>linux端 client-daemon交互是通过本地IPC/UNIX socket - /var/run/docker.sock </li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="0x02-Docker-容器"><a href="#0x02-Docker-容器" class="headerlink" title="0x02  Docker 容器"></a>0x02  Docker 容器</h2><ul>
+<li><blockquote>
+<ul>
+<li>容器和hypervisor：硬件虚拟化 &amp; 软件虚拟化</li>
+<li>/var/run/docker.sock 实现远程api</li>
+<li>杀死容器主进程，容器也会被杀死</li>
+<li>容器是可以持久化数据 </li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Docker 容器 常用命令</span></span><br><span class="line"></span><br><span class="line">docker container run -it &lt;image&gt; &lt;app&gt;</span><br><span class="line">docker version</span><br><span class="line">docker container <span class="built_in">exec</span> -it &lt;container-id&gt; &lt;app&gt;</span><br><span class="line">docker container stop &lt;container-id&gt;</span><br><span class="line">docker container start &lt;container-id&gt;</span><br><span class="line">docker container rm &lt;container-id&gt;</span><br><span class="line">docker container inspect &lt;image-name&gt;</span><br><span class="line">docker container run -it ubuntu /bin/bash</span><br><span class="line">docker container run --name <span class="built_in">test</span> -it --restart always alpine sh</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未掌握的点</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 优雅地停止容器</span></span><br><span class="line">docker container stop &amp; rm 的区别</span><br><span class="line"><span class="comment"># 利用重启策略进行容器自我修复</span></span><br><span class="line">docker run -it --name <span class="built_in">test</span> --restart always &lt;image&gt; &lt;app&gt;</span><br><span class="line">docker run -it --name <span class="built_in">test</span> --restart unless-stopped &lt;image&gt; &lt;app&gt;</span><br><span class="line">on-failture</span><br><span class="line"><span class="comment"># 类比暴力的rm -rf 删除所有容器（无论状态如何）</span></span><br><span class="line">docker container rm $(docker contianer ls -aq) -f</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-Docker-镜像"><a href="#0x03-Docker-镜像" class="headerlink" title="0x03 Docker 镜像"></a>0x03 Docker 镜像</h2><ul>
+<li><blockquote>
+<ul>
+<li>/var/lib/docker/<storage-driver></storage-driver></li>
+<li>latest标签并不保证是最新的</li>
+<li>拉取非官方镜像库需要加上仓库DNS名称</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line"></span><br><span class="line">docker image pull &lt;repository&gt;:&lt;tag&gt;</span><br><span class="line">docker search &lt;repository or image&gt;</span><br><span class="line">docker image inspect &lt;image-name&gt;</span><br><span class="line">docker <span class="built_in">history</span> &lt;image-name&gt;</span><br><span class="line">docker images rm &lt;image-id&gt;</span><br><span class="line">docker images rm $(docker image ls -q) -f</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高级命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker image ls -&gt; 个性化搜索 -&gt; awk grep</span></span><br><span class="line">docker image ls --filter dangling=<span class="literal">true</span></span><br><span class="line">docker image ls --filter dangling=<span class="literal">false</span></span><br><span class="line">docker image ls --format <span class="string">"&#123;&#123;.Repository&#125;&#125;:&#123;&#123;.Size&#125;&#125;:&#123;&#123;.Tag&#125;&#125;"</span></span><br><span class="line">docker search <span class="built_in">test</span> --filter <span class="string">"is-official=true"</span></span><br><span class="line">docker search <span class="built_in">test</span> --filter <span class="string">"is-automated=true"</span></span><br><span class="line">docker search <span class="built_in">test</span> --<span class="built_in">limit</span> 40</span><br><span class="line">filter: dangling before since label</span><br><span class="line">filter: --reference --format --digests sha256签名</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+  <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未掌握的点</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第五章 docker 引擎</span></span><br><span class="line">docker client</span><br><span class="line">docker daemon</span><br><span class="line">containerd</span><br><span class="line">runc</span><br><span class="line">LXC -&gt; namespace CGroup</span><br><span class="line">OCI</span><br><span class="line">shim</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第六章 docker 镜像</span></span><br><span class="line">共享镜像层</span><br><span class="line">根据摘要拉取镜像</span><br><span class="line">镜像散列值</span><br><span class="line">docker image pull imagename@sha-xxx</span><br><span class="line">多层架构镜像</span><br><span class="line">docker container run -rm goloang go version</span><br></pre></td></tr></table></figure>
+<h2 id="0x04-Docker-容器应用化"><a href="#0x04-Docker-容器应用化" class="headerlink" title="0x04 Docker 容器应用化"></a>0x04 Docker 容器应用化</h2><ul>
+<li><blockquote>
+<ul>
+<li>/root/.docker/config.json</li>
+<li>base64编码 : eGlhb3hpYW9jMTEwOnRvcGhhbnRAMDE3</li>
+<li>xiaoxiaoc110 : tophant@017</li>
+<li>应用容器化步骤：<ul>
+<li>编写应用代码</li>
+<li>创建一个Dockerfile</li>
+<li>docker image build</li>
+<li>每一个run指令都会新增一个镜像层</li>
+<li>多阶段构建容器</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line">docker login</span><br><span class="line">docker image build -t <span class="built_in">test</span>:latest .</span><br><span class="line">docker image tag test1:latest test2:latest</span><br><span class="line">docker image push <span class="built_in">test</span>:latest</span><br><span class="line">docker image <span class="built_in">history</span> psweb:latest</span><br><span class="line">docker image inspect</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 高级命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用缓存构建 -强制忽略对缓存的使用</span></span><br><span class="line">docker image build -t --nochche=<span class="literal">true</span> <span class="built_in">test</span>:latest .</span><br><span class="line"><span class="comment"># 合并镜像</span></span><br><span class="line">docker image build -t --squash <span class="built_in">test</span>:latest .</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 未掌握的点</span></span><br><span class="line"></span><br><span class="line">-  使用 no-install-recommends</span><br><span class="line">-  不要安装msi包</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x05-Docker-Compose"><a href="#0x05-Docker-Compose" class="headerlink" title="0x05 Docker Compose"></a>0x05 Docker Compose</h2><ul>
+<li><blockquote>
+<ul>
+<li>docker compose 是用来管理多个docker容器来实现一个应用的管理</li>
+<li>compose文件主要4个key ： version services networks volumes 其他<ul>
+<li>version ：并不是docker compose 和docker的版本 是compose文件的版本</li>
+<li>services ： 定义不同的应用</li>
+<li>networks : 指引docker 创建新的网络 默认是bridge drive属性自定义</li>
+<li>volumes ： 指引docker 创建新的卷 </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p><strong>Docker-Compose 安装</strong> </p>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 离线安装</span></span><br><span class="line"><span class="comment"># 到 https://github.com/docker/compose/releases 下载 </span></span><br><span class="line"><span class="comment"># 将 docker-compose-Linux-x86_64 上传到机器上 </span></span><br><span class="line">sudo mv docker-compose-Linux-x86_64 /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">docker-compose -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在线安装（github太慢了）</span></span><br><span class="line"> curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> docker-compose -v</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -&amp; 运行在前台,可以看每一次操作反馈</span></span><br><span class="line">docker-compose up &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># -f 如果文件名称不是默认的docker-compose.yml or yaml 使用-f</span></span><br><span class="line">docker-compose -f test.yml up</span><br><span class="line"></span><br><span class="line"><span class="comment"># -d 后台启动</span></span><br><span class="line">docker-compose up -d</span><br><span class="line">docker-compose -f test.yml up -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看镜像&amp;容器&amp;网络&amp;卷</span></span><br><span class="line">docker image ls</span><br><span class="line">docker container ls</span><br><span class="line">docker network ls</span><br><span class="line">docker volume ls</span><br><span class="line"></span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose top</span><br><span class="line">docker-compose restart</span><br><span class="line">docker-compose rm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实时更改容器内容</span></span><br><span class="line"><span class="comment"># 看一下volume位置在哪,vi修改内容，然后cp</span></span><br><span class="line">docker volume ls</span><br><span class="line">vi app.py</span><br><span class="line">docker volume inspect <span class="built_in">test</span> | grep Mount</span><br><span class="line">cp ~/<span class="built_in">test</span>/app.py /var/lib/docker/volumes/<span class="built_in">test</span>/_data/app.py</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x06-Docker-Swarm"><a href="#0x06-Docker-Swarm" class="headerlink" title="0x06 Docker Swarm"></a>0x06 Docker Swarm</h2><ul>
+<li><blockquote>
+<ul>
+<li>swarmswarm 包括 docker安全集群 &amp; 微服务应用编排引擎</li>
+<li>swarm 默认内置<ul>
+<li>加密的分布式集群存储加密网络公用TLS安全集群接入令牌简化数字管理KPI </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 常用命令</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/05/0x05_Docker技术入门与实践/" rel="prev" title="0x05_Docker技术入门与实践">
+      <i class="fa fa-chevron-left"></i> 0x05_Docker技术入门与实践
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ReadMe"><span class="nav-number">1.</span> <span class="nav-text">ReadMe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-Docker-概念"><span class="nav-number">2.</span> <span class="nav-text">0x00 Docker 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Docker-安装"><span class="nav-number">3.</span> <span class="nav-text">0x01 Docker 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Docker-容器"><span class="nav-number">4.</span> <span class="nav-text">0x02  Docker 容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Docker-镜像"><span class="nav-number">5.</span> <span class="nav-text">0x03 Docker 镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Docker-容器应用化"><span class="nav-number">6.</span> <span class="nav-text">0x04 Docker 容器应用化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-Docker-Compose"><span class="nav-number">7.</span> <span class="nav-text">0x05 Docker Compose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Docker-Swarm"><span class="nav-number">8.</span> <span class="nav-text">0x06 Docker Swarm</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">littlec</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xiaoxiaoc111" title="GitHub → https://github.com/xiaoxiaoc111" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fzuxiaoxiaoc@gmail.com" title="E-Mail → mailto:fzuxiaoxiaoc@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">littlec</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

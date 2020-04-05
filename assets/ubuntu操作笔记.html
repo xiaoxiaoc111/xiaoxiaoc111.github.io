@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ubuntu操作笔记                    body, td {       font-family: 微软雅黑;       font-size: 10pt;     }       ubuntu操作笔记   创建时间：2019/10/21 13:35 更新时间：2019/11/26 10:28 作者：李斌李先生 来源：https://www.linuxidc.com/L">
+<meta property="og:type" content="website">
+<meta property="og:title" content="lb&#39;s Notes">
+<meta property="og:url" content="http://yoursite.com/assets/ubuntu操作笔记.html">
+<meta property="og:site_name" content="lb&#39;s Notes">
+<meta property="og:description" content="ubuntu操作笔记                    body, td {       font-family: 微软雅黑;       font-size: 10pt;     }       ubuntu操作笔记   创建时间：2019/10/21 13:35 更新时间：2019/11/26 10:28 作者：李斌李先生 来源：https://www.linuxidc.com/L">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-05T09:31:15.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lb&#39;s Notes">
+<meta name="twitter:description" content="ubuntu操作笔记                    body, td {       font-family: 微软雅黑;       font-size: 10pt;     }       ubuntu操作笔记   创建时间：2019/10/21 13:35 更新时间：2019/11/26 10:28 作者：李斌李先生 来源：https://www.linuxidc.com/L">
+
+<link rel="canonical" href="http://yoursite.com/assets/ubuntu操作笔记">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | lb's Notes
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lb's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <title>ubuntu操作笔记</title>
+  <basefont face="微软雅黑" size="2">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="exporter-version" content="YXBJ Windows/600753 (zh-CN, DDL); Windows/10.0.0 (Win64);">
+  <meta name="content-class" content="yinxiang.markdown">
+  <style>
+    body, td {
+      font-family: 微软雅黑;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="1668">
+<h1>ubuntu操作笔记</h1>
+<div>
+<table bgcolor="#D4DDE5" border="0">
+<tr><td><b>创建时间：</b></td><td><i>2019/10/21 13:35</i></td></tr>
+<tr><td><b>更新时间：</b></td><td><i>2019/11/26 10:28</i></td></tr>
+<tr><td><b>作者：</b></td><td><i>李斌李先生</i></td></tr>
+<tr><td><b>来源：</b></td><td><a href="https://www.linuxidc.com/Linux/2017-11/148439.htm" target="_blank" rel="noopener"><i>https://www.linuxidc.com/Linux/2017-11/148439.htm</i></a></td></tr>
+</table>
+</div>
+<br>
+
+<div><span><div style="font-size: 14px; margin: 0; padding: 0; width: 100%;"><h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">20191021</h4>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">虚拟机 安装 ubuntu1604tls</p>
+<h5 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 16px; color: #333;">基础配置</h5>
+<ul style="line-height: 160%; box-sizing: content-box; display: block; list-style-type: disc; padding-left: 30px; margin: 6px 0 10px; color: #333;">
+<li style="line-height: 160%; box-sizing: content-box; position: relative;">关闭网络更新</li>
+<li style="line-height: 160%; box-sizing: content-box; position: relative;">不设置软件更新</li>
+</ul>
+<h5 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 16px; color: #333;">安装ssh</h5>
+<ul style="line-height: 160%; box-sizing: content-box; display: block; list-style-type: disc; padding-left: 30px; margin: 6px 0 10px; color: #333;">
+<li style="line-height: 160%; box-sizing: content-box; position: relative;">https://www.cnblogs.com/jiarenanhao/p/9938280.html</li>
+</ul>
+<h5 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 16px; color: #333;">设置分辨率</h5>
+<ul style="line-height: 160%; box-sizing: content-box; display: block; list-style-type: disc; padding-left: 30px; margin: 6px 0 10px; color: #333;">
+<li style="line-height: 160%; box-sizing: content-box; position: relative;">https://www.linuxidc.com/Linux/2017-11/148439.htm</li>
+</ul>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">永久修改如下：
+    cvt 1360 768
+获取当前的Modeline信息，然后新建文件
+    /etc/X11/xorg.conf，内容如下，重启即可生效
+
+
+Section &quot;Monitor&quot;
+Identifier &quot;Configured Monitor&quot;
+Modeline &quot;1360x768_60.00&quot; 84.75 1360 1432 1568 1776 768 771 781 798 -hsync +
+vsync
+Option &quot;PreferredMode&quot; &quot;1360x768_60.00&quot;
+EndSection
+Section &quot;Screen&quot;
+Identifier &quot;Default Screen&quot;
+Monitor &quot;Configured Monitor&quot;
+Device &quot;Configured Video Device&quot;
+EndSection
+Section &quot;Device&quot;
+Identifier &quot;Configured Video Device&quot;
+EndSection `
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">问题</p>
+</div><center style="display:none !important;visibility:collapse !important;height:0 !important;white-space:nowrap;width:100%;overflow:hidden">%23%23%23%23%2020191021%0A%0A%E8%99%9A%E6%8B%9F%E6%9C%BA%20%E5%AE%89%E8%A3%85%20ubuntu1604tls%0A%23%23%23%23%23%20%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%0A*%20%E5%85%B3%E9%97%AD%E7%BD%91%E7%BB%9C%E6%9B%B4%E6%96%B0%20%0A*%20%E4%B8%8D%E8%AE%BE%E7%BD%AE%E8%BD%AF%E4%BB%B6%E6%9B%B4%E6%96%B0%0A%0A%0A%23%23%23%23%23%20%E5%AE%89%E8%A3%85ssh%0A*%20https%3A%2F%2Fwww.cnblogs.com%2Fjiarenanhao%2Fp%2F9938280.html%0A%20%20%20%20%0A%23%23%23%23%23%20%E8%AE%BE%E7%BD%AE%E5%88%86%E8%BE%A8%E7%8E%87%0A*%20https%3A%2F%2Fwww.linuxidc.com%2FLinux%2F2017-11%2F148439.htm%0A%0A%0A%60%60%60%0A%E6%B0%B8%E4%B9%85%E4%BF%AE%E6%94%B9%E5%A6%82%E4%B8%8B%EF%BC%9A%0A%20%20%20%20cvt%201360%20768%0A%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%9A%84Modeline%E4%BF%A1%E6%81%AF%EF%BC%8C%E7%84%B6%E5%90%8E%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%0A%20%20%20%20%2Fetc%2FX11%2Fxorg.conf%EF%BC%8C%E5%86%85%E5%AE%B9%E5%A6%82%E4%B8%8B%EF%BC%8C%E9%87%8D%E5%90%AF%E5%8D%B3%E5%8F%AF%E7%94%9F%E6%95%88%0A%0A%0ASection%20%22Monitor%22%0AIdentifier%20%22Configured%20Monitor%22%0AModeline%20%221360x768_60.00%22%2084.75%201360%201432%201568%201776%20768%20771%20781%20798%20-hsync%20%2B%0Avsync%0AOption%20%22PreferredMode%22%20%221360x768_60.00%22%0AEndSection%0ASection%20%22Screen%22%0AIdentifier%20%22Default%20Screen%22%0AMonitor%20%22Configured%20Monitor%22%0ADevice%20%22Configured%20Video%20Device%22%0AEndSection%0ASection%20%22Device%22%0AIdentifier%20%22Configured%20Video%20Device%22%0AEndSection%C2%A0%60%0A%60%60%60%0A%0A%E9%97%AE%E9%A2%98</center></span>
+</div></a></body></html> 
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">ubuntu操作笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">20191021</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">基础配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">安装ssh</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">设置分辨率</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">littlec</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xiaoxiaoc111" title="GitHub → https://github.com/xiaoxiaoc111" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fzuxiaoxiaoc@gmail.com" title="E-Mail → mailto:fzuxiaoxiaoc@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">littlec</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="0x00 Readme Reference:">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="website">
+<meta property="og:title" content="[object Object]">
+<meta property="og:url" content="http://yoursite.com/0x05_Docker.html">
+<meta property="og:site_name" content="lb&#39;s Notes">
+<meta property="og:description" content="0x00 Readme Reference:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-05T09:31:15.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[object Object]">
+<meta name="twitter:description" content="0x00 Readme Reference:">
+
+<link rel="canonical" href="http://yoursite.com/0x05_Docker">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>[object Object] | lb's Notes
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lb's Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">[object Object]
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="0x00-Readme"><a href="#0x00-Readme" class="headerlink" title="0x00 Readme"></a>0x00 Readme</h2><ul>
+<li>Reference:</li>
+</ul>
+<a id="more"></a>
+<h2 id="0x01-Docker-快速上手"><a href="#0x01-Docker-快速上手" class="headerlink" title="0x01 Docker 快速上手"></a>0x01 Docker 快速上手</h2><h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装必要的系统工具</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="comment"># 添加软件源信息</span></span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 更新 yum 缓存</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"><span class="comment"># 安装 Docker-ce</span></span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line"><span class="comment"># 启动 Docker 后台服务</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"><span class="comment"># 测试运行 hello-world</span></span><br><span class="line">docker run hello-world</span><br><span class="line"><span class="comment"># 设置daemon.json 加快docker pull 速度</span></span><br><span class="line">vi /etc/docker/daemon.json :wq </span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"registry-mirrors"</span>: [<span class="string">"https://9cpn8tt6.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装-Docker-Compose"><a href="#安装-Docker-Compose" class="headerlink" title="安装 Docker-Compose"></a>安装 Docker-Compose</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 离线安装</span></span><br><span class="line"><span class="comment"># 到 https://github.com/docker/compose/releases 下载 </span></span><br><span class="line"><span class="comment"># 将 docker-compose-Linux-x86_64 上传到机器上 </span></span><br><span class="line">sudo mv docker-compose-Linux-x86_64 /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">docker-compose -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在线安装（github太慢了）</span></span><br><span class="line"> curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"> docker-compose -v</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="常用-命令"><a href="#常用-命令" class="headerlink" title="常用 命令"></a>常用 命令</h3><ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker常用命令</span></span><br><span class="line">docker version</span><br><span class="line">docker info</span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line">docker image ls</span><br><span class="line">docker images</span><br><span class="line">docker container ls -a</span><br><span class="line">docker ps</span><br><span class="line">docker container run -it &lt;image&gt;:&lt;tag&gt; &lt;app&gt;</span><br><span class="line">docker <span class="built_in">exec</span> -it &lt;image&gt;:&lt;tag&gt; &lt;app&gt;</span><br><span class="line">docker container stop &lt;container id&gt;</span><br><span class="line">docker container rm &lt;container id&gt;</span><br><span class="line">docker container inspect &lt;container name&gt;</span><br><span class="line">docker container inspect &lt;container id&gt;</span><br><span class="line">docker container run --name &lt;name&gt; -it --restart always &lt;image&gt; &lt;app&gt;</span><br><span class="line">ctrl-p-q   <span class="comment">#退出容器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># docker 镜像命令</span></span><br><span class="line">docker login</span><br><span class="line">docker image build -t &lt;image name&gt;:&lt;tag&gt; .</span><br><span class="line">docker image tag &lt;image name1&gt;:&lt;tag&gt; &lt;imagename2&gt;:&lt;tag&gt;</span><br><span class="line">docker image push &lt;image name1&gt;:&lt;tag&gt;</span><br><span class="line">docker image <span class="built_in">history</span> &lt;image name&gt;:&lt;tag&gt;</span><br><span class="line">docker image inspect &lt;image name&gt;:&lt;tag&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># docker-compose 命令</span></span><br><span class="line"><span class="comment"># &amp; 运行在前台 -d 运行在后台</span></span><br><span class="line">docker-compose up &amp;</span><br><span class="line">docker-compose up -d</span><br><span class="line">docker-compose -f test.yml up</span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose top</span><br><span class="line">docker-compose restart</span><br><span class="line">docker-compose rm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看镜像&amp;容器&amp;网络&amp;卷</span></span><br><span class="line">docker image ls</span><br><span class="line">docker contianer ls</span><br><span class="line">docker network ls</span><br><span class="line">docker volume ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实时更改容器内容</span></span><br><span class="line"><span class="comment"># 看一下volume位置在哪，vi修改内容，然后cp</span></span><br><span class="line">docker volume ls</span><br><span class="line">vi app.py</span><br><span class="line">docker volume inspect <span class="built_in">test</span> |grep Mount cp ~/<span class="built_in">test</span>/app.py /var/lib/docker/volumes/<span class="built_in">test</span>/_data/app.py</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="常用-命令-批量删除已退出的docker容器"><a href="#常用-命令-批量删除已退出的docker容器" class="headerlink" title="常用 命令 批量删除已退出的docker容器"></a>常用 命令 批量删除已退出的docker容器</h3><ul>
+<li><p><a href="https://blog.csdn.net/jiangeeq/article/details/79499324" target="_blank" rel="noopener">如何批量删除Docker中已经停止的容器</a></p>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line"><span class="comment">#显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID，</span></span><br><span class="line">sudo docker ps -a|grep Exited|awk <span class="string">'&#123;print $1&#125;'</span></span><br><span class="line"><span class="comment">#查询所有的容器，过滤出Exited状态的容器，列出容器ID，删除这些容器</span></span><br><span class="line">sudo docker rm `docker ps -a|grep Exited|awk <span class="string">'&#123;print $1&#125;'</span>`</span><br><span class="line"></span><br><span class="line">方法二： </span><br><span class="line"><span class="comment">#删除所有未运行的容器（已经运行的删除不了，未运行的就一起被删除了）</span></span><br><span class="line">sudo docker rm $(sudo docker ps -a -q)</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"><span class="comment">#根据容器的状态，删除Exited状态的容器</span></span><br><span class="line">sudo docker rm $(sudo docker ps -qf status=exited)</span><br><span class="line"> </span><br><span class="line">方法四：</span><br><span class="line"><span class="comment">#Docker 1.13版本以后，可以使用 docker containers prune 命令，删除孤立的容器。</span></span><br><span class="line">sudo docker container prune</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="概念-理解-Dockerfile-和-Docker区别"><a href="#概念-理解-Dockerfile-和-Docker区别" class="headerlink" title="概念 理解 Dockerfile 和 Docker区别"></a>概念 理解 Dockerfile 和 Docker区别</h3><blockquote>
+<ul>
+<li>从头说起。假如你不用 docker ，搭建 wordpress 怎么弄？<ul>
+<li>先找台 server ，假设其 OS 为 Ubuntu ，然后按照文档一步步敲命令，写配置，对吧？</li>
+<li>用 docker 呢？ 随便找台 server ，不管什么操作系统，只要支持 docker 就行， docker run ubuntu, docker 会从官方源里拉取最新的 Ubuntu 镜像，可以认为你开了个 Ubuntu 虚拟机，然后一步步安装，跟上面一样。但是这样安装有个显著的缺点，一旦 container 被删，你做的工作就都没了。当然可以用 docker commit 来保存成镜像，这样就可以复用了。但是镜像一般比较大，而且只分享镜像的话，别人也不知道你这镜像到底包含什么，这些问题都不利于分享和复用。</li>
+<li>一个直观的解决方案就是，写个脚本把安装过程全部记录下来，这样再次安装的时候，执行脚本就行了。 Dockerfile 就是这样的脚本，它记录了一个镜像的制作过程。有了 Dockerfile, 只要执行 docker build . 就能制作镜像，而且 Dockerfile 就是文本文件，修改也很方便。现在有了 wordpress 的镜像，只需要 docker run 就把 wordpress 启动起来了。</li>
+<li>如果仅仅是 wordpress, 这也就够了。但是很多时候，需要多个镜像合作才能启动一个服务，比如前端要有 nginx ， 数据库 mysql, 邮件服务等等，当然你可以把所有这些都弄到一个镜像里去，但这样做就无法复用了。更常见的是, nginx, mysql, smtp 都分别是个镜像，然后这些镜像合作，共同服务一个项目。</li>
+<li>docker-compose 就是解决这个问题的。你的项目需要哪些镜像，每个镜像怎么配置，要挂载哪些 volume, 等等信息都包含在 docker-compose.yml 里。要启动服务，只需要 docker-compose up 就行，停止也只需要 docker-compse stop/down简而言之， Dockerfile 记录单个镜像的构建过程， docker-compse.yml 记录一个项目(project, 一般是多个镜像)的构建过程。</li>
+<li>你说有些教程用了 dockerfile+docker-compose, 是因为 docker-compose.yml 本身没有镜像构建的信息，如果镜像是从 docker registry 拉取下来的，那么 Dockerfile 就不需要；如果镜像是需要 build 的，那就需要提供 Dockerfile.说了好多废话，也比较低级浅显，贻笑大方了。 </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="0x02-Docker-部署-Dvwa"><a href="#0x02-Docker-部署-Dvwa" class="headerlink" title="0x02 Docker 部署 Dvwa"></a>0x02 Docker 部署 Dvwa</h2><blockquote>
+<ul>
+<li>使用 Dvwa 学习 OWASP Top 10</li>
+</ul>
+</blockquote>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.部署环境</span></span><br><span class="line"><span class="comment"># 环境：win10_vmware15_centos7.4minimal</span></span><br><span class="line"><span class="comment"># 配置：20G硬盘 2G内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 docker</span></span><br><span class="line"><span class="comment"># 安装必要的系统工具</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"><span class="comment"># 添加软件源信息</span></span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"><span class="comment"># 更新 yum 缓存</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"><span class="comment"># 安装 Docker-ce：</span></span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line"><span class="comment"># 启动 Docker 后台服务</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line"><span class="comment"># 测试运行 hello-world</span></span><br><span class="line">docker run hello-world</span><br><span class="line"><span class="comment"># 设置daemon.json 加快docker pull 速度</span></span><br><span class="line">vi /etc/docker/daemon.json    :wq  (注意json格式)</span><br><span class="line">	  &#123;</span><br><span class="line">            <span class="string">"registry-mirrors"</span>: [<span class="string">"https://9cpn8tt6.mirror.aliyuncs.com"</span>]</span><br><span class="line">      &#125;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line">systemctl <span class="built_in">enable</span>  docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.docker 部署 lamp 容器</span></span><br><span class="line">docker search lamp</span><br><span class="line">docker pull tutum/lamp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行lamp容器</span></span><br><span class="line">docker run -it -p 80:80 --name lamp tutum/lamp /bin/bash </span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器里执行</span></span><br><span class="line">docke <span class="built_in">exec</span> -it lamp /bin/bash</span><br><span class="line">./run.sh</span><br><span class="line"><span class="comment"># ctrl +c 终止</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql内操作</span></span><br><span class="line">mysql -u root -p  &lt;空格&gt;</span><br><span class="line">	&gt;  <span class="built_in">set</span> password <span class="keyword">for</span> root@localhost = password(<span class="string">'123456'</span>);</span><br><span class="line">	&gt;  GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">	&gt;  GRANT ALL PRIVILEGES ON *.* TO <span class="string">'root'</span>@<span class="string">'localhost'</span>;</span><br><span class="line">	&gt;  drop user admin@<span class="string">'%'</span>;</span><br><span class="line">	&gt;  <span class="built_in">exit</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3. docker 导入 dvwa</span></span><br><span class="line"><span class="comment"># &lt;http://www.dvwa.co.uk/&gt;  官网下载dvwa fq会快一点</span></span><br><span class="line"><span class="comment"># 将DVWA-master文件使用xftp从主机导入到虚拟机</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入vmware 导入docker  </span></span><br><span class="line">docker ps <span class="comment"># 查看containerid</span></span><br><span class="line">docker cp DVWA-master &lt;containerid&gt;:/</span><br><span class="line">docker attach containerid</span><br><span class="line"><span class="built_in">cd</span> /var/www/html</span><br><span class="line">rm -rf ./*   <span class="comment">#删除默认网页</span></span><br><span class="line"><span class="built_in">cd</span> /DVWA-master</span><br><span class="line">cp -r ./* /var/www/html</span><br><span class="line">service apache2 start</span><br><span class="line">netstat -nltp |grep 80</span><br><span class="line"><span class="built_in">cd</span> /var/www/html/config</span><br><span class="line">cp config.inc.php.dist  config.inc.php</span><br><span class="line">vi config.inc.php</span><br><span class="line"><span class="comment"># 测试环境建议修改密码为123456或者其他弱密码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4. 保存dvwa容器镜像进行复用</span></span><br><span class="line"><span class="comment"># 使用docker commit 保存为镜像  #&lt;user&gt; 是自定义用户名，自行修改</span></span><br><span class="line"></span><br><span class="line">docker commit -m<span class="string">"&lt;user&gt;-dvwa"</span> -a <span class="string">"&lt;user&gt;"</span> containerid &lt;user&gt;dvwa</span><br><span class="line">docker ps</span><br><span class="line">docker <span class="built_in">export</span> containerid  &gt;  &lt;user&gt;_docker_dvwa.tar</span><br><span class="line">docker import &lt;user&gt;_docker_dvwa.tar  &lt;user&gt;/dvwa</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5. 容器复用，导入到新的机器 </span></span><br><span class="line"><span class="comment"># 将镜像导入到新机器</span></span><br><span class="line">docker import littlec_docker_dvwa.tar  littlec/dvwa</span><br><span class="line">docker run -itd --name dvwa -p 90:80 -p 3316:3306 littlec/dvwa /bin/bash</span><br><span class="line">docker <span class="built_in">exec</span> -it  dvwa /bin/bash</span><br><span class="line">	<span class="comment"># 容器内操作</span></span><br><span class="line">	service apache2 start</span><br><span class="line">	netstat -nltp |grep 80</span><br><span class="line">	<span class="built_in">exit</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问IP加端口就可以看到dvwa界面</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 问题解决：service mysql start falied</span></span><br><span class="line"><span class="comment"># 初始化mysqld.sh 脚本运行 重新设置mysql</span></span><br><span class="line"><span class="comment"># service mysql start</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 6. 相关问题解决</span></span><br><span class="line"><span class="comment"># 问题描述：如果导入的dvwa不能运行怎么办？</span></span><br><span class="line"><span class="comment"># 原因分析：数据库不一致，需要重新设置。</span></span><br><span class="line"><span class="comment"># 解决方案：重新设置mysql</span></span><br><span class="line"> </span><br><span class="line">mysql -u root -p &lt;空格&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在mysql里面操作，设置密码&amp;加权限&amp;删用户</span></span><br><span class="line">	&gt; <span class="built_in">set</span> password <span class="keyword">for</span> root@localhost = password(<span class="string">'123456'</span>);</span><br><span class="line">	&gt; GRANT ALL PRIVILEGES ON . TO <span class="string">'root'</span>@<span class="string">'%'</span>;</span><br><span class="line">	&gt; GRANT ALL PRIVILEGES ON . TO <span class="string">'root'</span>@<span class="string">'localhost'</span>;</span><br><span class="line">	&gt; drop user admin@<span class="string">'%'</span>;</span><br><span class="line">	&gt; <span class="built_in">exit</span>；</span><br><span class="line">ctrl+p ctrl+q</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问IP加端口就可以看到dvwa界面</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="0x03-Docker-部署-Habor"><a href="#0x03-Docker-部署-Habor" class="headerlink" title="0x03 Docker 部署 Habor"></a>0x03 Docker 部署 Habor</h2><ul>
+<li><blockquote>
+<ul>
+<li><p>所有加载的镜像都会放在Habor仓库中</p>
+</li>
+<li><p>Habor会比docker原有的仓库好用，有管理界面</p>
+</li>
+<li><a href="https://www.jb51.net/article/176809.htm" target="_blank" rel="noopener">Docker搭建私有仓库(registry与Harbor)的实现</a> </li>
+<li><a href="https://storage.googleapis.com/harbor-releases/release-1.9.0/harbor-offline-installer-v1.9.1.tgz" target="_blank" rel="noopener">harbor-offline-installer-v1.9.1.tgz文档下载</a>  FQ会快一点</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.环境准备</span></span><br><span class="line"><span class="comment"># 安装好docker和docker-compose</span></span><br><span class="line">$ docker -v</span><br><span class="line">Docker version 19.03.5, build 633a0ea</span><br><span class="line">$ docker-compose -v</span><br><span class="line">docker-compose version 1.25.0, build 0a186604</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.搭建Habor</span></span><br><span class="line">wget https://storage.googleapis.com/harbor-releases/release-1.9.0/harbor-offline-installer-v1.9.1.tgz</span><br><span class="line">tar zxf harbor-offline-installer-v1.9.1.tgz -C /usr/<span class="built_in">local</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/harbor/</span><br><span class="line"></span><br><span class="line">vim harbor.yml</span><br><span class="line"><span class="comment"># 编写其配置文件，其他版本默认是cfg结尾的，这个版本是yml结尾的，文件内容都一样的</span></span><br><span class="line">hostname: 192.168.1.1         <span class="comment"># 更改其为本机的IP地址</span></span><br><span class="line">harbor_admin_password: Harbor12345    <span class="comment"># 设置为tophant@017</span></span><br><span class="line"><span class="comment"># 这一行原本就是存在，不需要自行填写，只需记得它的用户名和密码即可，有需要可以自行进行修改</span></span><br><span class="line"></span><br><span class="line">./install.sh         <span class="comment"># 执行安装脚本</span></span><br><span class="line"></span><br><span class="line">vim /usr/lib/systemd/system/docker.service</span><br><span class="line"><span class="comment"># 编写docker主配置文件</span></span><br><span class="line">13 ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.1</span><br><span class="line"><span class="comment"># 跟registry差不多，主要harbor配置文件中没有填写端口号，这里也可添加，否则可能会出现错误</span></span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker      <span class="comment"># 重新启动docker服务</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/usr/<span class="built_in">local</span>/harbor   </span><br><span class="line"></span><br><span class="line">docker-compose start</span><br><span class="line"><span class="comment"># 使用docker-compose工具启动所有容器（因为在重新启动docker时，所有的容器都已经关闭了）</span></span><br><span class="line"></span><br><span class="line">yum -y install net-tools <span class="comment"># 安装网络工具</span></span><br><span class="line">$ netstat -anpt | grep 80     <span class="comment"># 确认80端口在监听</span></span><br><span class="line">tcp    0   0 172.18.0.1:33780    172.18.0.5:10514    ESTABLISHED 70076/docker-proxy</span><br><span class="line">tcp6    0   0 :::80          :::*          LISTEN   72870/docker-proxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问 &lt;ip&gt; admin/tophant@017 或者 Harbor12345</span></span><br><span class="line">pw</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3.集群配置仓库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在另外一台centos配置habor认证信息</span></span><br><span class="line">vi /etc/docker/daemon.json  :wq</span><br><span class="line"><span class="comment"># 添加参数，不要忘记在上一个参数后加个逗号 ，</span></span><br><span class="line"><span class="string">"insecure-registries"</span>: [<span class="string">"192.168.1.253"</span>]</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line">docker login ip <span class="comment">#输入admin/tophant@017</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送镜像测试</span></span><br><span class="line">docker pull alpine:latest</span><br><span class="line">docke tag alpine:latest &lt;ip&gt;/&lt;registry&gt;/alpine:latest</span><br><span class="line">docker push &lt;ip&gt;/&lt;registry&gt;/alpine:latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问 &lt;ip&gt; admin/tophant@017 验证</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h2 id="0x04-Docker-部署-Wordpress"><a href="#0x04-Docker-部署-Wordpress" class="headerlink" title="0x04 Docker 部署 Wordpress"></a>0x04 Docker 部署 Wordpress</h2><ul>
+<li><blockquote>
+<p><a href="https://www.jianshu.com/p/2faca4e1f6fb" target="_blank" rel="noopener">使用docker在CentOS7上搭建WordPress</a></p>
+</blockquote>
+</li>
+<li><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 Docker</span></span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">systemctl start docker</span><br><span class="line">vi /etc/docker/daemon.json</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置角色</span></span><br><span class="line">groupadd docker</span><br><span class="line">useradd -g docker docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 WordPress 容器</span></span><br><span class="line">docker pull wordpress:latest</span><br><span class="line">docker pull mysql:5.6</span><br><span class="line">docker run -d --privileged=<span class="literal">true</span> --name myMysql -v /data/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -p 33306:3306 mysql:5.6</span><br><span class="line">docker ps</span><br><span class="line">docker run -d --name mwp -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_PASSWORD=123456 -p 1080:80 --link myMysql:mysql wordpress</span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<p>g</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-Readme"><span class="nav-number">1.</span> <span class="nav-text">0x00 Readme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Docker-快速上手"><span class="nav-number">2.</span> <span class="nav-text">0x01 Docker 快速上手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Docker"><span class="nav-number">2.1.</span> <span class="nav-text">安装 Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Docker-Compose"><span class="nav-number">2.2.</span> <span class="nav-text">安装 Docker-Compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用-命令"><span class="nav-number">2.3.</span> <span class="nav-text">常用 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用-命令-批量删除已退出的docker容器"><span class="nav-number">2.4.</span> <span class="nav-text">常用 命令 批量删除已退出的docker容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-理解-Dockerfile-和-Docker区别"><span class="nav-number">2.5.</span> <span class="nav-text">概念 理解 Dockerfile 和 Docker区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Docker-部署-Dvwa"><span class="nav-number">3.</span> <span class="nav-text">0x02 Docker 部署 Dvwa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Docker-部署-Habor"><span class="nav-number">4.</span> <span class="nav-text">0x03 Docker 部署 Habor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Docker-部署-Wordpress"><span class="nav-number">5.</span> <span class="nav-text">0x04 Docker 部署 Wordpress</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">littlec</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xiaoxiaoc111" title="GitHub → https://github.com/xiaoxiaoc111" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fzuxiaoxiaoc@gmail.com" title="E-Mail → mailto:fzuxiaoxiaoc@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">littlec</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
